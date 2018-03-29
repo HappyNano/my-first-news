@@ -25,8 +25,7 @@ SECRET_KEY = '02t#n0wv(+a9rq&-bhp!4mrvk#rfw!n#tahje5yj26k5w_+82d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', '<твоё_имя_пользователя>.pythonanywhere.com']
-
+ALLOWED_HOSTS = ['127.0.0.1', 'happynano.pythonanywhere.com']
 
 # Application definition
 

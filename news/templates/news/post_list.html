@@ -3,11 +3,11 @@
 {% block content %}
  {% for post in posts %}
   <div class="post">
-   <div class="posts">
+  
     <h1 style="padding-left:3%"><a href="{% url 'post_detail' pk=post.pk %}" class="title">{{ post.title }}</a></h1>
     <hr/>
     <p style="padding-left:3%">{{ post.text|linebreaksbr }}</p>
-   </div>
+
     <ul class="post-social">
     <li>
         <a href="#" target="_blank">

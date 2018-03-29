@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="{% static 'css/css/responsive.css' %}" type="text/css" media="screen">
     <script href="{% static 'js/ajax.js' %}"></script>
     <script type="text/javascript" href="{% static 'js/mediaqueries.js' %}"></script>
-    
 </head>
 <body class="home blog">
     <!-- Start Header -->
@@ -26,7 +25,7 @@
                 <div id="header-nav-container">
 
                     <a href="/">
-                        <img src="https://lh6.googleusercontent.com/C2yn1_wgdK3aC62P0de8xTMKf9Pr7RsqHPFw8Zh69BnJzue8BWN-3eThvOHfFpx4BwWvxXgeYPKqspXpZ2Xp=w1920-h945" width="271px" height="52px" id="logo" />
+                        <img src="https://lh3.googleusercontent.com/l8bEGbDLw_Oy-e4xuPgyWFmcru00AVy9pRek4NHffo7zU0LpNBInwISORJTGbN3GO8titBUXvkUeQ6bZllfd=w1920-h896" width="271px" height="52px" id="logo" />
                     </a>
 
                     <!-- Navigation Menu -->
@@ -34,7 +33,7 @@
                     <ul class="sf-menu">
                         <li class="menu-item current-menu-item"><a href="/">Главная</a></li>
                         <li class="menu-item"><a href="blog.html">Форум(Не работает)</a></li>
-                        <li class="menu-item"><a href="about.html">О нас</a></li>
+                        <li class="menu-item"><a href="{% url 'about'%}">О нас</a></li>
                     </ul>
                     <!-- End Navigation Menu -->
 
@@ -65,9 +64,10 @@
         <div class="col-1-3">
             <div class="wrap-col">
                 <form onsubmit="SetCookie('username',nam.value,largeExpDate,myDomain)" method="get">
-                    <script type="text/javascript" src="static/js/cook.js"></script>
+                    {% block extrahead %}
+                      <script type="text/javascript" src="{% static 'js/cook.js' %}"></script>
+                    {% endblock extrahead %}</form>
                     <div class="clear"></div>
-
             </div>    <div class="clear"></div>
         </div>
     </div>        <!-- End Sidebar -->
@@ -84,7 +84,7 @@
                 <p>Copyrigh &copy; 2017. Все права защищены.</p>
                 <!-- End Footer Copyright -->
                 <!-- Footer Logo -->
-                <img src="https://lh5.googleusercontent.com/ziO5Gz3ddYBMZS4MwvaXMHz2fjrvsmAKTQxgNPr6C1TqKxNvrHFFIaHH6RK-sV_XbVIAUa-m-3KsQHO_cqsP=w1920-h945" height="73" width="73" id="footer-logo" />
+                <img src="https://lh5.googleusercontent.com/sjt3b2OOzj2_mv_Rv_4M2J_9FHOsyC8bR9z_-CarY1WgL1usxGRPi4-DQiP4mRb4dJCQo8iSUzzO6YzgWreH=w1920-h896" height="73" width="73" id="footer-logo" />
                 <!-- End Footer Logo -->
 
                 <div class="clear"></div>
