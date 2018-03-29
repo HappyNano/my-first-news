@@ -1,13 +1,37 @@
 {% extends 'news/base.html' %}
 
 {% block content %}
-    {% for post in posts %}
-        <div class="post">
-            <div class="date">
-                {{ post.published_date }}
-            </div>
-            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>
-            <p>{{ post.text|linebreaksbr }}</p>
-        </div>
-    {% endfor %}
+ {% for post in posts %}
+  <div class="post">
+   <div class="posts">
+    <h1 style="padding-left:3%"><a href="{% url 'post_detail' pk=post.pk %}" class="title">{{ post.title }}</a></h1>
+    <hr/>
+    <p style="padding-left:3%">{{ post.text|linebreaksbr }}</p>
+   </div>
+    <ul class="post-social">
+    <li>
+        <a href="#" target="_blank">
+            <i class="fa fa-facebook"></i>
+        </a>
+        </li>
+
+        <li>
+            <a href="#" target="_blank">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+
+        <li>
+            <a href="#" target="_blank">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li>
+            <a href="{% url 'post_detail' pk=post.pk %}" class="readmore"> Читать далее.. <i class="fa fa-arrow-circle-o-right"></i></a>
+        </li>
+        </ul>
+
+    <div class="clear"></div>
+  </div>
+ {% endfor %}
 {% endblock %}

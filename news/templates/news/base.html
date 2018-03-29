@@ -1,23 +1,96 @@
-{% load staticfiles %}
+<!DOCTYPE html>
 <html>
-    <head>
-        <title>News</title>
-		<link href="https://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic" rel="stylesheet" type="text/css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="{% static 'css/news.css' %}">
-    </head>
-<body>
-    <div class="page-header">
-        <h1><a href="/">NEws</a></h1>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8"/>
+    <title>Сайтик</title>
+    <link rel='stylesheet' id='reset-css' href='static/css/css/reset.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='superfish-css' href='static/css/css/superfish.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='fontawsome-css' href='static/css/css/font-awsome/css/font-awesome.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='orbit-css-css' href='static/css/css/orbit.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='style-css' href='static/css/css/style.css' type='text/css' media='all' />
+    <link rel='stylesheet' id='color-scheme-css' href='static/css/css/color/green.css' type='text/css' media='all' />
+    <link rel="stylesheet" href="static/css/css/zerogrid.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="static/css/css/responsive.css" type="text/css" media="screen">
+    <script href="static/js/ajax.js"></script>
+    <script type="text/javascript" href="static/js/mediaqueries.js"></script>
+    
+</head>
+<body class="home blog">
+    <!-- Start Header -->
+    <div class="container zerogrid">
+        <div class="col-full">
+            <div class="wrap-col">
+                <div id="header-nav-container">
+
+                    <a href="#">
+                        <img src="https://lh6.googleusercontent.com/C2yn1_wgdK3aC62P0de8xTMKf9Pr7RsqHPFw8Zh69BnJzue8BWN-3eThvOHfFpx4BwWvxXgeYPKqspXpZ2Xp=w1920-h945" width="271px" height="52px" id="logo" />
+                    </a>
+
+                    <!-- Navigation Menu -->
+
+                    <ul class="sf-menu">
+                        <li class="menu-item current-menu-item"><a href="/">Главная</a></li>
+                        <li class="menu-item"><a href="blog.html">Форум(Не работает)</a></li>
+                        <li class="menu-item"><a href="about.html">О нас</a></li>
+                    </ul>
+                    <!-- End Navigation Menu -->
+
+                    <div class="clear"></div>
+
+                </div>
+            </div>
+        </div>
+        <div class="clear"></div>
     </div>
-    <div class="content container">
-        <div class="row">
-            <div class="col-md-8">
-            {% block content %}
-            {% endblock %}
+    <div class="spacing-30"></div>
+    <div class="container zerogrid">
+
+        <!-- Start Posts Container -->
+        <div class="col-2-3" id="post-container">
+            <div class="wrap-col">
+                <!-- End Post Item -->
+                <!-- Start Post Item -->
+                {% block content %}
+                {% endblock %}
+                <!-- End Post Item -->
+
+                <div class="clear"></div>
+            </div>
+        </div>
+        <!-- End Posts Container -->
+        <!-- Start Sidebar -->
+        <div class="col-1-3">
+            <div class="wrap-col">
+                <form onsubmit="SetCookie('username',nam.value,largeExpDate,myDomain)" method="get">
+                    <script type="text/javascript" src="static/js/cook.js"></script>
+                    <div class="clear"></div>
+
+            </div>    <div class="clear"></div>
+        </div>
+    </div>        <!-- End Sidebar -->
+
+    <div class="clear"></div>
+    </div>
+    <!-- End Main Container -->
+    <!-- Start Footer -->
+    <div class="spacing-30"></div>
+    <div class="container zerogrid">
+        <div id="footer-container" class="col-full">
+            <div class="wrap-col">
+                <!-- Footer Copyright -->
+                <p>Copyrigh &copy; 2017. Все права защищены.</p>
+                <!-- End Footer Copyright -->
+                <!-- Footer Logo -->
+                <img src="https://lh5.googleusercontent.com/ziO5Gz3ddYBMZS4MwvaXMHz2fjrvsmAKTQxgNPr6C1TqKxNvrHFFIaHH6RK-sV_XbVIAUa-m-3KsQHO_cqsP=w1920-h945" height="73" width="73" id="footer-logo" />
+                <!-- End Footer Logo -->
+
+                <div class="clear"></div>
             </div>
         </div>
     </div>
+    <!-- End Footer -->
+
 </body>
 </html>
