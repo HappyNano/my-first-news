@@ -209,31 +209,31 @@ a:hover{ color:#2980b9; }
 
 
 /* Comments */
-.comment-container{ background:#FFFFFF; padding-top:30px; padding-bottom:30px; }
-#comment-header{ text-align:center; margin-bottom:40px; padding-bottom:30px; border-bottom:1px solid #EEEEEE; }
-.comment-list{ margin-left:40px; margin-right:40px; }
+.reg-container{ background:#FFFFFF; padding-top:30px; padding-bottom:30px; }
+#reg-header{ text-align:center; margin-bottom:40px; padding-bottom:30px; border-bottom:1px solid #EEEEEE; }
+.reg-list{ margin-left:40px; margin-right:40px; }
 
-.comment-header{overflow:hidden; margin-bottom:10px; font-size:14px; font-weight:700 }
-.comment-header a{ color:#2980b9; }
-.comment-header a:hover{ color:#343434; }
-.comment-text{ overflow:hidden; }
-.comment-text p{ font-size:14px; }
+.reg-header{overflow:hidden; margin-bottom:10px; font-size:14px; font-weight:700 }
+.reg-header a{ color:#2980b9; }
+.reg-header a:hover{ color:#343434; }
+.reg-text{ overflow:hidden; }
+.reg-text p{ font-size:14px; }
 .reply-link{ text-transform:uppercase; font-size:14px; font-weight:700; }
 
 .avatar-mask{ height:70px; width:70px; background:url(../images/post-avatar.png); position:absolute }
 .avatar-container{ float:left; margin-right:20px; }
 
-.comment-list .children{ margin-left:80px; margin-top:40px; }
-.comment-list li{ margin-bottom:60px; }
+.reg-list .children{ margin-left:80px; margin-top:40px; }
+.reg-list li{ margin-bottom:60px; }
 
 /* Comment Form */
-.commen-form{ margin-left:40px; margin-right:40px; } 
-.comment-email, .comment-name, .comment-url{ overflow:hidden; width:50%; padding:10px; margin-bottom:30px; outline:none; background:#EEEEEE; border:none; }
-.comment-text-area{ overflow:hidden; width:95%; height:200px; margin-bottom:10px; padding:10px; outline:none; background:#EEEEEE; border:none }
-#comment-submit{ background:#343434; border:none; color:#FFFFFF; font-weight:700; text-transform:capitalize; font-size:14px; padding:10px; cursor:pointer }
-#comment-submit:hover{ background:#2980b9; }
+.reg-form{ margin-left:40px; margin-right:40px; } 
+.reg-email, .reg-name, .reg-url{ overflow:hidden; width:50%; padding:10px; margin-bottom:30px; outline:none; background:#EEEEEE; border:none; }
+.reg-text-area{ overflow:hidden; width:95%; height:200px; margin-bottom:10px; padding:10px; outline:none; background:#EEEEEE; border:none }
+#reg-submit{ background:#343434; border:none; color:#FFFFFF; font-weight:700; text-transform:capitalize; font-size:14px; padding:10px; cursor:pointer }
+#reg-submit:hover{ background:#2980b9; }
 
-#cancel-comment-reply-link{ font-size:14px; }
+#cancel-reg-reply-link{ font-size:14px; }
 .logged-in-as{ font-size:14px; }
 .logged-in-as a{ color:#2980b9; }
 

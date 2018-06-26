@@ -3,11 +3,23 @@
 {% block content %}
  {% for post in posts %}
   <div class="post">
-  
-    <h1 style="padding-left:3%"><a href="{% url 'post_detail' pk=post.pk %}" class="title">{{ post.title }}</a></h1>
-    <hr/>
-    <p style="padding-left:3%">{{ post.text|linebreaksbr }}</p>
-
+    <div class="post-margin">
+		
+		<div class="post-avatar">
+            <img alt='' src='http://1.gravatar.com/avatar/16afd22c8bf5c2398b206a76c9316a3c?s=70&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D70&amp;r=G' class='avatar avatar-70 photo' height='70' width='70' />               
+			</div>
+                
+            <h4><a href="{% url 'post_detail' pk=post.pk %}" class="title">{{ post.title }}</a></h4>
+                	<ul class="post-status">
+                    <li><i class="fa fa-clock-o"></i>
+							  {% if post.published_date %}
+								{{ post.created_date }}
+						{% endif %}</li>
+                    </ul></div>
+                    <div class="clear"></div>
+        <div class="post-margin">
+			<p style="padding-left:3%">{{ post.text|linebreaksbr }}</p>
+		</div>
     <ul class="post-social">
     <li>
         <a href="#" target="_blank">
