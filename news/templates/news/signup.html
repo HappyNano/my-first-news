@@ -3,9 +3,8 @@
   <div class="reg-container">
   <h6 id="reg-header">Регистрация</h6>
   <div class="reg-form">
-  <form method="post" id="reg-form-container" class="reg-form">
-    <input type="hidden" name="csrfmiddlewaretoken" value="eSyAS9RZktHE4vLrFbfBI7xsT7XViFA7dJqAbh0My1fqWMTjcFaJeE4xA8Mod0Tv">
-    
+  <form method="post" class="reg-form">
+  {% csrf_token %}
       <p>
         <input type="text" class="reg-name" placeholder="Имя пользователя" name="username" maxlength="150" autofocus="" required="" id="id_username">
           <small style="color: grey">Обязательное поле.<small>
