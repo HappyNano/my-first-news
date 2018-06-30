@@ -8,7 +8,7 @@
             <img alt='' src='http://1.gravatar.com/avatar/16afd22c8bf5c2398b206a76c9316a3c?s=70&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D70&amp;r=G' class='avatar avatar-70 photo' height='70' width='70' />               
 			</div>
                 
-            <h4><a href="{% url 'post_detail' pk=post.pk %}" class="title">{{ post.title }}</a></h4>
+            <h4 class="title">{{ post.title }}</h4>
                 	<ul class="post-status">
                     <li><i class="fa fa-clock-o"></i>
 							  {% if post.published_date %}
@@ -18,6 +18,57 @@
                     <div class="clear"></div>
         <div class="post-margin">
 			<p style="padding-left:3%">{{ post.text|linebreaksbr }}</p>
+		</div></div>
+
+		<div class="post">
+			{% for comment in comments %}
+			<div class="post-margin">
+				<h4 class="title">{{ comment.name }}</h4>
+				<ul class="post-status">
+                    <li><i class="fa fa-clock-o"></i>
+						{{ comment.created }}	</li>
+                </ul>			
+				<p style="padding-left:3%">{{ comment.body|linebreaks }}</p>
+			</div>
+			<hr/>
+				{% empty %}
+		<h6 id="comment-header">Комментариев нету </br> Добавь новый комментарий</h6>
+				{% endfor %}
+		{% if new_comment %}
+			<h2>Your comment has been added.</h2>
+		{% else %}
+    {% if user.is_authenticated %}
+	 {% if user.profile.email_confirmed is True %}
+     <div class="comment-container">
+	 <div class="commen-form">
+		<div id="respond" class="comment-respond">
+			<form action="." method="post" class="comment-form">
+				<p> <input type="hidden" name="name" maxlength="80" required="" id="id_name" value={{ user.get_username }}></p>
+				<p> <textarea name="body" class="comment-text-area" placeholder="Текст" cols="40" rows="10" required="" id="id_body"></textarea></p>
+				<div class="g-recaptcha" data-sitekey="6LeFeGEUAAAAAGHmCmWYFf_L7Z8-Cl7miccxQwjA"></div>
+				{% csrf_token %}
+				<p class="form-submit">
+					<input name="submit" type="submit" id="comment-submit" value="Отправить комментарий">
+				</p>
+			</form>
 		</div>
-    </div>
+     </div>
+	 </div>
+	 {% else %}
+		<div class="comment-container">
+			<div class="commen-form">
+				<p> Что-бы оставить комментарий, подтвердите почту </p>
+			</div>
+		</div>
+     {% endif %}
+	{% else %}
+	<div class="comment-container">
+		<div class="commen-form">
+			<p> Что-бы оставить комментарий, залогиньтесь </p>
+		</div>
+	</div>
+	{% endif %}
+{% endif %}
+	
+	</div>
 {% endblock %}

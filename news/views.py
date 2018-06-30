@@ -1,19 +1,46 @@
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from .models import Post
+from .models import Post, Comment
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import auth
 from django.contrib.auth import login, authenticate
 
+from django.conf import settings
+from g_recaptcha.validate_recaptcha import validate_captcha
+
+from .forms import CommentForm
+
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     return render(request, 'news/post_list.html', {'posts': posts})
 
+@validate_captcha
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    return render(request, 'news/post_detail.html', {'post': post})
+    # List of active comments for this post
+    comments = post.comments.filter(active=True)
+
+    if request.method == 'POST':
+        # A comment was posted
+        comment_form = CommentForm(data=request.POST)
+        if comment_form.is_valid():
+            # Create Comment object but don't save to database yet
+            new_comment = comment_form.save(commit=False)
+            # Assign the current post to the comment
+            new_comment.post = post
+            # Save the comment to the database
+            new_comment.save()
+    else:
+        comment_form = CommentForm()
+    return render(request,
+                  'news/post_detail.html',
+                 {'post': post,
+                  'comments': comments,
+                  'comment_form': comment_form,
+				  '6LeFeGEUAAAAAGHmCmWYFf_L7Z8-Cl7miccxQwjA': settings.GOOGLE_RECAPTCHA_SITE_KEY,})
+
 
 def about(request):
     return render(request, 'news/about.html')

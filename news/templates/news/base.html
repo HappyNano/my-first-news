@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="{% static 'css/css/responsive.css' %}" type="text/css" media="screen">
     <script href="{% static 'js/ajax.js' %}"></script>
     <script type="text/javascript" href="{% static 'js/mediaqueries.js' %}"></script>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 </head>
 <body class="home blog">
     <!-- Start Header -->
@@ -71,6 +72,7 @@
 				    <div id="login-form">
 						<h1> {{ user.get_username }}</h1>
 						<fieldset>
+						    {% if user.profile.email_confirmed is True %} {% else %}<p style="color:red;">Подтвердите вашу почту</p> {% endif %}
 							<p><a type="submit" href="{% url 'logout'%}?next={{request.path}}">Выйти</a></p>
 						</fieldset>
 					</div>
@@ -78,16 +80,19 @@
 					
 						<div id="login-form">
 						  <h1>Авторизация</h1>
- 						 <form method="post" action="{% url 'login' %}">
- 						 {% csrf_token %}
- 						 <fieldset>
-  						  <input type="login" name="username" placeholder="Логин" autofocus="" maxlength="254" required="" id="id_username">
-					      <br/>
-  						  <input type="password" name="password" placeholder="Пароль" required="" id="id_password">
+							<fieldset>
+							{% if form.errors %}
+								<p style="color:red;">Логин или пароль не совпадают! Попробуйте заного.</p>
+							{% endif %}
+							<form method="post" action="{% url 'login' %}">
+								{% csrf_token %}
+								<input type="login" name="username" placeholder="Логин" autofocus="" maxlength="254" required="" id="id_username">
+								<br/>
+								<input type="password" name="password" placeholder="Пароль" required="" id="id_password">
 
-  						<div></br>
-						  {# Assumes you setup the password_reset view in your URLconf #}
- 						  <p><span class="info">?</span><a href="{% url 'password_reset' %}">Забыли пароль?</a><input type="submit" value="Вход" /></p>
+								<div></br>
+								{# Assumes you setup the password_reset view in your URLconf #}
+								<p><span class="info">?</span><a href="{% url 'password_reset' %}">Забыли пароль?</a><input type="submit" value="Вход" /></p>
 						  
  						</div>
   						</form>

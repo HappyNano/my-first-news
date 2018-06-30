@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 	'news',
+	'g_recaptcha',
 ]
 
 MIDDLEWARE = [
@@ -124,3 +125,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 LOGIN_REDIRECT_URL = '/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+GOOGLE_RECAPTCHA_SITE_KEY = '6LeFeGEUAAAAAGHmCmWYFf_L7Z8-Cl7miccxQwjA'
+GOOGLE_RECAPTCHA_SECRET_KEY = '6LeFeGEUAAAAACAIBBtfToWkeSseXHihcmbKomdc'
