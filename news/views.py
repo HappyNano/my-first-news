@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from django.shortcuts import render, redirect
 from django.utils import timezone
 from .models import Post, Comment
@@ -7,10 +10,17 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib import auth
 from django.contrib.auth import login, authenticate
 
+from django.core.mail import send_mail
+
 from django.conf import settings
 from g_recaptcha.validate_recaptcha import validate_captcha
 
 from .forms import CommentForm
+
+from django.contrib.auth.models import User
+from django.utils.encoding import force_text
+from django.utils.http import urlsafe_base64_decode
+
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -71,6 +81,9 @@ from django.template.loader import render_to_string
 from .forms import SignUpForm
 from .tokens import account_activation_token
 
+from django.conf import settings
+
+@validate_captcha
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -90,13 +103,8 @@ def signup(request):
             return redirect('account_activation_sent')
     else:
         form = SignUpForm()
-    return render(request, 'news/signup.html', {'form': form})
+    return render(request, 'news/signup.html', {'6LeFeGEUAAAAAGHmCmWYFf_L7Z8-Cl7miccxQwjA': settings.GOOGLE_RECAPTCHA_SITE_KEY,})
 	
-
-from django.contrib.auth.models import User
-from django.utils.encoding import force_text
-from django.utils.http import urlsafe_base64_decode
-
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
