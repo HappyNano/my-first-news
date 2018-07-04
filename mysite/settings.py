@@ -124,7 +124,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'cocoincraft@gmail.com'
+EMAIL_HOST_PASSWORD = 'coincraftsu228happynano332llon344zombistone567valer4ik702minecraft284com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 GOOGLE_RECAPTCHA_SITE_KEY = '6LeFeGEUAAAAAGHmCmWYFf_L7Z8-Cl7miccxQwjA'
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LeFeGEUAAAAACAIBBtfToWkeSseXHihcmbKomdc'
