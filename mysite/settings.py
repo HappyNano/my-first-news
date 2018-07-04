@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '02t#n0wv(+a9rq&-bhp!4mrvk#rfw!n#tahje5yj26k5w_+82d'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 
 ALLOWED_HOSTS = ['127.0.0.1', 'happyuser.pythonanywhere.com']
@@ -127,13 +127,6 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
 
-<<<<<<< HEAD
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'cocoincraft@gmail.com'
-EMAIL_HOST_PASSWORD = 'coincraftsu228happynano332llon344zombistone567valer4ik702minecraft284com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-=======
 # добавляем приложение в setting.py
 ACCOUNT_ACTIVATION_DAYS = 2 # кол-во дней для хранения кода активации
 
@@ -148,29 +141,6 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'info@google.ru'
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
->>>>>>> 865dfa17303e87b22d095cd15f37e7dd59bfe207
 
 GOOGLE_RECAPTCHA_SITE_KEY = '6LeFeGEUAAAAAGHmCmWYFf_L7Z8-Cl7miccxQwjA'
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LeFeGEUAAAAACAIBBtfToWkeSseXHihcmbKomdc'
-
-ADMINS = (
-  ('your name', 'me@mydomain.com'),
-)
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'mail_admins': {
-            'level': 'ERROR',
-            'class': 'django.utils.log.AdminEmailHandler'
-        }
-    },
-    'loggers': {
-        'django.request': {
-            'handlers': ['mail_admins'],
-            'level': 'ERROR',
-            'propagate': True,
-        },
-    }
-}
