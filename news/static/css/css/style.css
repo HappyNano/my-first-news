@@ -639,9 +639,9 @@ a:hover{ color:#2980b9; }
 /* Данные строки нужны для правильной работы анимации */
     max-height:0px;
     overflow:hidden;
-    -webkit-transition:max-height 0.4s linear;
-    -moz-transition:max-height 0.4s linear;
-    transition:max-height 0.4s linear;
+    -webkit-transition:max-height 1s linear;
+    -moz-transition:max-height 1s linear;
+    transition:max-height 1s linear;
 /* конец */
 }
  
