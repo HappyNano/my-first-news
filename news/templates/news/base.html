@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta charset="utf-8"/>
     <title>Сайтик</title>
+	<link rel="shortcut icon" href="{% static 'images/footer-log3.png' %}" type="image/png">
     <link rel='stylesheet' id='reset-css' href="{% static '/css/css/reset.css' %}" type='text/css' media='all' />
     <link rel='stylesheet' id='superfish-css' href="{% static 'css/css/superfish.css' %}" type='text/css' media='all' />
     <link rel='stylesheet' id='fontawsome-css' href="{% static 'css/css/font-awsome/css/font-awesome.css' %}" type='text/css' media='all' />
@@ -70,41 +71,54 @@
             <div class="wrap-col">
                 {% if user.is_authenticated %}
 				    <div id="login-form">
-						<h1> {{ user.get_username }}</h1>
+						<h1>{{ user.get_username }}</h1>
 						<fieldset>
+								<img src="{{ user.userprofile.avatar.url }}" />
 						    {% if user.profile.email_confirmed is True %} {% else %}<p style="color:red;">Подтвердите вашу почту</p> {% endif %}
 							<p><a type="submit" href="{% url 'logout'%}?next={{request.path}}">Выйти</a></p>
 						</fieldset>
 					</div>
 				{% else %}
 					
-						<div id="login-form">
-						  <h1>Авторизация</h1>
+						<div id="login-form" class="slow_nav">
+						<nav>
+						  <h1 class="log-head">Авторизация</h1>
 							<fieldset>
+							</br>
 							{% if form.errors %}
 								<p style="color:red;">Логин или пароль не совпадают! Попробуйте заного.</p>
 							{% endif %}
 							<form method="post" action="{% url 'login' %}">
 								{% csrf_token %}
-								<input type="login" name="username" placeholder="Логин" autofocus="" maxlength="254" required="" id="id_username">
-								<br/>
-								<input type="password" name="password" placeholder="Пароль" required="" id="id_password">
+								<div class="form-group ">
+									<input type="login" name="username" class="form-control" placeholder="Имя пользователя " maxlength="254" required="" id="id_username">
+									<i class="fa fa-user"></i>
+								</div>
+								<div class="form-group log-status">
+									<input type="password" name="password" class="form-control" placeholder="Пароль "  required="" id="id_password">
+									<i class="fa fa-lock"></i>
+								</div>
 
-								<div></br>
-								{# Assumes you setup the password_reset view in your URLconf #}
-								<p><span class="info">?</span><a href="{% url 'password_reset' %}">Забыли пароль?</a><input type="submit" value="Вход" /></p>
-						  
- 						</div>
-  						</form>
- 						</fieldset>
- 						 
+								<p class='link' ><a href="{% url 'password_reset' %}">Забыли пароль?</a><span class="info">?</span></p>
+								<input type="submit" class="log-btn" value="Вход"/>
+							</form>
+ 						</fieldset> 
+						</nav>
   						</footer>
-						</div> 
+						</div>
+						<!-- 	<script>
+								var menuElem = document.getElementById('login-form');
+								var titleElem = menuElem.querySelector('.log-head');
+
+								titleElem.onclick = function() {
+									menuElem.classList.toggle('open');
+								};
+							</script> -->
+
 				{% endif %} 
 				</ul>
                     <div class="clear"></div>
             </div>
-			
 			<div class="clear"></div>
         </div>
     </div>        <!-- End Sidebar -->

@@ -1,0 +1,454 @@
+.post-gallery { 
+	width: 610px;
+	height: 350px;
+	background: #000 url('../images/loading.gif') no-repeat center center;
+	overflow: hidden; }
+.post-gallery>img,  
+.post-gallery>div,
+.post-gallery>a { display: none; }
+
+.post-gallery img{ width:610px; height:350px; }
+
+
+
+
+/* CONTAINER
+   ================================================== */
+
+div.orbit-wrapper {
+    width: 1px;
+    height: 1px;
+    position: relative; }
+
+div.orbit {
+    width: 1px;
+    height: 1px;
+    position: relative;
+    overflow: hidden }
+
+div.orbit>img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none; }
+
+div.orbit>a {
+    border: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    line-height: 0; 
+    display: none; }
+
+.orbit>div {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; }
+
+/* Note: If your slider only uses content or anchors, you're going to want to put the width and height declarations on the ".orbit>div" and "div.orbit>a" tags in addition to just the .orbit-wrapper */
+
+
+/* TIMER
+   ================================================== */
+
+div.timer {
+    width: 40px;
+    height: 40px;
+    overflow: hidden;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    opacity: .6;
+    cursor: pointer;
+    z-index: 1001; }
+
+span.rotator {
+    display: block;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    left: -20px;
+    background: url(../images/rotator-black.png) no-repeat;
+    z-index: 3; }
+
+span.mask {
+    display: block;
+    width: 20px;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    overflow: hidden; }
+
+span.rotator.move {
+    left: 0 }
+
+span.mask.move {
+    width: 40px;
+    left: 0;
+    background: url(../images/timer-black.png) repeat 0 0; }
+
+span.pause {
+    display: block;
+    width: 40px;
+    height: 40px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: url(../images/pause-black.png) no-repeat;
+    z-index: 4;
+    opacity: 0; }
+
+span.pause.active {
+    background: url(../images/pause-black.png) no-repeat 0 -40px }
+
+div.timer:hover span.pause,
+span.pause.active {
+    opacity: 1 }
+
+
+/* CAPTIONS
+   ================================================== */
+
+.orbit-caption {
+    display: none;
+    font-family: "HelveticaNeue", "Helvetica-Neue", Helvetica, Arial, sans-serif; }
+
+.orbit-wrapper .orbit-caption {
+    background: #000;
+    background: rgba(0,0,0,.6);
+    z-index: 1000;
+    color: #fff;
+	text-align: center;
+	padding: 7px 0;
+    font-size: 13px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 100%; }
+
+
+/* DIRECTIONAL NAV
+   ================================================== */
+
+div.slider-nav {
+    display: block }
+
+div.slider-nav span {
+    position: absolute;
+    z-index: 1000;
+    top: 60%;
+    margin-top: -50px;
+    cursor: pointer;
+	
+	opacity:0.5;
+	filter:Alpha(opacity=50);
+	
+	-webkit-transition: all 0.5s ease-in-out;
+	-moz-transition: all 0.5s ease-in-out;
+    -ms-transition: all 0.5s ease-in-out;
+    -o-transition: all 0.5s ease-in-out;
+	transition: all 0.5s ease-in-out;
+	
+	background:#343434;
+	color:#FFFFFF;
+	font-size:20px;
+	padding:10px;
+	padding-left:15px;
+	padding-right:15px;
+	}
+
+div.slider-nav span.right { right: 0; }
+div.slider-nav span.right:hover{ background:#2980b9; opacity:1; filter:Alpha(opacity=100); }
+
+div.slider-nav span.left { left: 0; }
+div.slider-nav span.left:hover{ background:#2980b9; opacity:1; filter:Alpha(opacity=100); }
+
+/* BULLET NAV
+   ================================================== */
+
+.orbit-bullets {
+    position: absolute;
+    z-index: 1000;
+    list-style: none;
+    bottom: -40px;
+    left: 50%;
+	margin-left: -50px;
+    padding: 0; }
+
+.orbit-bullets li {
+    float: left;
+    margin-left: 5px;
+    cursor: pointer;
+    color: #999;
+    text-indent: -9999px;
+    background: url(../images/bullets.jpg) no-repeat 4px 0;
+    width: 13px;
+    height: 12px;
+    overflow: hidden; }
+
+.orbit-bullets li.active {
+    color: #222;
+    background-position: -8px 0; }
+    
+.orbit-bullets li.has-thumb {
+    background: none;
+    width: 100px;
+    height: 75px; }
+
+.orbit-bullets li.active.has-thumb {
+    background-position: 0 0;
+    border-top: 2px solid #000; }
+html {
+   -webkit-text-size-adjust: none;
+}
+.video embed,
+.video object,
+.video iframe {
+   width: 100%;
+   height: auto;
+}
+img{
+	max-width:100%;
+	height: auto;
+   	width: auto\9; /* ie8 */
+}
+
+/*------------------------*/
+
+@media only screen and (max-width: 959px) {
+	.list_carousel{
+		display: none;
+	}
+}
+@media only screen and (max-width: 820px){
+	
+}
+@media only screen and (max-width: 600px) {
+}
+@media only screen and (max-width: 420px) {
+}
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700|Open+Sans:400,300,600,700);
+/* Font Formats 
+font-family: 'Open Sans', sans-serif;
+font-family: 'Montserrat', sans-serif;
+*/
+
+body{
+	background:#f6f5f2;
+	font-family: 'Open Sans', sans-serif;
+	padding-top:30px;
+	padding-bottom:30px;
+	}
+
+h1,h2,h3,h4,h5,h6{ font-family: 'Montserrat', sans-serif; text-transform:uppercase; font-weight:700; line-height:1.4em; color:#555555; }
+h1{ font-size:35px; }
+h2{ font-size:33px; }
+h3{ font-size:30px; }
+h4{ font-size:28px; }
+h5{ font-size:25px; }
+h6{ font-size:20px; }
+
+p{ font-size:16px; line-height:1.7em; color:#555555; margin-bottom:20px; }
+
+a{ color:#444444; text-decoration:none; }
+a:hover{ color:#2980b9; }
+
+.clear{ clear: both; }
+.wrapper{ width:100%; }
+
+.first{ margin-left:0px; }
+.last{ margin-right:0px; }
+
+/* ================================================== */
+/* Spacer */
+/* ================================================== */
+.spacing-10{ height:10px; width:100%; }
+.spacing-20{ height:20px; width:100%; }
+.spacing-30{ height:30px; width:100%; }
+.spacing-40{ height:40px; width:100%; }
+.spacing-50{ height:50px; width:100%; }
+.spacing-60{ height:60px; width:100%; }
+.spacing-70{ height:70px; width:100%; }
+.spacing-80{ height:80px; width:100%; }
+.spacing-90{ height:90px; width:100%; }
+.spacing-100{ height:100px; width:100%; }
+
+/* ================================================== */
+/* Header */
+/* ================================================== */
+#header-nav-container{
+	background:#343434;
+	}
+#logo{ margin-left:15px; }
+/*** ESSENTIAL STYLES ***/
+.sf-menu, .sf-menu * {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.sf-menu li {
+	position: relative;
+}
+.sf-menu ul {
+	position: absolute;
+	display: none;
+	top: 100%;
+	left: 0;
+	z-index: 99999;
+}
+.sf-menu > li {
+	float: left;
+}
+.sf-menu li:hover > ul,
+.sf-menu li.sfHover > ul {
+	display: block;
+}
+
+.sf-menu a {
+	display: block;
+	position: relative;
+}
+.sf-menu ul ul {
+	top: 0;
+	left: 100%;
+}
+
+
+
+
+
+
+
+.sf-menu {
+	float: right;
+}
+.sf-menu ul {
+	min-width: 12em; /* allow long menu items to determine submenu width */
+	*width: 12em; /* no auto sub width for IE7, see white-space comment below */
+}
+.sf-menu a {
+	padding: 1.5em 2em;
+	text-decoration: none;
+	zoom: 1; /* IE7 */
+}
+.sf-menu a {
+	color: #ffffff;
+	text-transform:uppercase;
+	font-weight:700;
+	font-family: 'Open Sans', sans-serif;
+	font-size:13px;
+}
+
+.sf-menu li {
+	white-space: nowrap; /* no need for Supersubs plugin */
+	*white-space: normal; /* ...unless you support IE7 (let it wrap) */
+}
+.sf-menu ul li {
+	background: #343434;
+}
+.sf-menu ul ul li {
+	background: #343434;
+}
+.sf-menu li:hover,
+.sf-menu li.sfHover {
+	background: #2980b9;
+	transition: none;
+	color:#FFFFFF;
+}
+.sf-menu li a:hover{ color:#FFFFFF; }
+
+/* Active or Current Nav menu */
+.sf-menu li.current{ background: #2980b9; }
+.sf-menu li.current-menu-item{ background: #2980b9; }
+
+/*** arrows (for all except IE7) **/
+.sf-arrows .sf-with-ul {
+	padding-right: 2.5em;
+	*padding-right: 1em; /* no CSS arrows for IE7 (lack pseudo-elements) */
+}
+/* styling for both css and generated arrows */
+.sf-arrows .sf-with-ul:after {
+	content: '';
+	position: absolute;
+	top: 50%;
+	right: 1em;
+	margin-top: -3px;
+	height: 0;
+	width: 0;
+	/* order of following 3 rules important for fallbacks to work */
+	border: 5px solid transparent;
+	border-top-color: #dFeEFF; /* edit this to suit design (no rgba in IE8) */
+	border-top-color: rgba(255,255,255,.5);
+}
+.sf-arrows > li > .sf-with-ul:focus:after,
+.sf-arrows > li:hover > .sf-with-ul:after,
+.sf-arrows > .sfHover > .sf-with-ul:after {
+	border-top-color: white; /* IE8 fallback colour */
+}
+/* styling for right-facing arrows */
+.sf-arrows ul .sf-with-ul:after {
+	margin-top: -5px;
+	margin-right: -3px;
+	border-color: transparent;
+	border-left-color: #dFeEFF; /* edit this to suit design (no rgba in IE8) */
+	border-left-color: rgba(255,255,255,.5);
+}
+.sf-arrows ul li > .sf-with-ul:focus:after,
+.sf-arrows ul li:hover > .sf-with-ul:after,
+.sf-arrows ul .sfHover > .sf-with-ul:after {
+	border-left-color: white;
+}
+.zerogrid{ width: 960px; position: relative; margin: 0 auto; padding: 0px;}
+.zerogrid:after { content: "\0020"; display: block; height: 0; clear: both; visibility: hidden; }
+
+.zerogrid .row{}
+.zerogrid .row:before,.row:after { content: '\0020'; display: block; overflow: hidden; visibility: hidden; width: 0; height: 0; }
+.zerogrid .row:after{clear: both; }
+.zerogrid .row{zoom: 1;}
+
+.zerogrid .wrap-col{margin:10px;}
+
+.zerogrid .col-1-2, .zerogrid .col-1-3, .zerogrid .col-2-3, .zerogrid .col-1-4, .zerogrid .col-2-4, .zerogrid .col-3-4, .zerogrid .col-1-5, .zerogrid .col-2-5, .zerogrid .col-3-5, .zerogrid .col-4-5, .zerogrid .col-1-6, .zerogrid .col-2-6, .zerogrid .col-3-6, .zerogrid .col-4-6, .zerogrid .col-5-6{float:left; display: inline-block;}
+
+.zerogrid .col-full{width:100%;}
+
+.zerogrid .col-1-2{width:50%;}
+
+.zerogrid .col-1-3{width:33.33%;}
+.zerogrid .col-2-3{width:66.66%;}
+
+.zerogrid .col-1-4{width:25%;}
+.zerogrid .col-2-4{width:50%;}
+.zerogrid .col-3-4{width:75%;}
+
+.zerogrid .col-1-5{width:20%;}
+.zerogrid .col-2-5{width:40%;}
+.zerogrid .col-3-5{width:60%;}
+.zerogrid .col-4-5{width:80%;}
+
+.zerogrid .col-1-6{width:16.66%;}
+.zerogrid .col-2-6{width:33.33%;}
+.zerogrid .col-3-6{width:50%;}
+.zerogrid .col-4-6{width:66.66%;}
+.zerogrid .col-5-6{width:83.33%;}
+
+@media only screen and (min-width: 768px) and (max-width: 959px) {
+	.zerogrid{width:768px;}
+}
+
+@media only screen and (max-width: 767px) {
+	.zerogrid{width:100%;}
+}
+
+@media only screen and (min-width: 620px) and (max-width: 767px) {
+	.zerogrid{width:100%;}
+}
+
+@media only screen and (max-width: 619px) {
+	.zerogrid, .zerogrid .col-1-2, .zerogrid .col-1-3, .zerogrid .col-2-3, .zerogrid .col-1-4, .zerogrid .col-2-4, .zerogrid .col-3-4, .zerogrid .col-1-5, .zerogrid .col-2-5, .zerogrid .col-3-5, .zerogrid .col-4-5, .zerogrid .col-1-6, .zerogrid .col-2-6, .zerogrid .col-3-6, .zerogrid .col-4-6, .zerogrid .col-5-6{width:100%;}
+}

@@ -10,6 +10,7 @@ class Post(models.Model):
     author = models.ForeignKey('auth.User', on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
     text = models.TextField()
+    image = models.ImageField(upload_to='images/post/', null=True, blank=True)
     created_date = models.DateTimeField(
             default=timezone.now)
     published_date = models.DateTimeField(
@@ -29,7 +30,11 @@ from django.dispatch import receiver
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     email_confirmed = models.BooleanField(default=False)
-    # other fields...
+    first_name = models.TextField(max_length=50, blank=True)
+    last_name = models.TextField(max_length=50, blank=True)
+    password1 = models.TextField(max_length=50, blank=True)
+    password2 = models.TextField(max_length=50, blank=True)
+    avatar = models.ImageField(upload_to='images/users/', null=True, blank=True, verbose_name='Аватар')
 
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
@@ -41,7 +46,6 @@ def update_user_profile(sender, instance, created, **kwargs):
 class Comment(models.Model):
     post = models.ForeignKey(Post, related_name='comments')
     name = models.CharField(max_length=80)
-    email = models.EmailField()
     body = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
@@ -52,3 +56,4 @@ class Comment(models.Model):
 
     def __str__(self):
         return 'Comment by {} on {}'.format(self.name, self.post)
+		

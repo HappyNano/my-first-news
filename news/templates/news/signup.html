@@ -1,35 +1,48 @@
 {% extends "news/base.html" %}
 {% block content %}
   <div class="reg-container">
-  <h6 id="reg-header">Регистрация</h6>
-  <div class="reg-form">
-  <form method="post" class="reg-form">
-  {% csrf_token %}
-      <p>
-        <input type="text" class="reg-name" placeholder="Имя пользователя" name="username" maxlength="150" autofocus="" required="" id="id_username">
-          <small style="color: grey">Обязательное поле.<small>
-      </p>
-      <p>
-        <input type="email" class="reg-email" placeholder="Ваша почта" name="email" maxlength="254" required="" id="id_email">
-          <small style="color: grey">Ваша почта (Понадобится для подтверждения пользователя).</small>
-      </p>
+  {% if user.is_authenticated %}
+	<h6 id="reg-header">Что-бы зарегистрироваться, нужно выйти из аккаунта!</h6>
+  {% else %}
+	<h6 id="reg-header">Регистрация</h6>
+	<div class="reg-form">
+	<form method="post" class="reg-form">
+		{% csrf_token %}
+		<p>
+			<input type="text" class="reg-name" placeholder="Имя пользователя" name="username" maxlength="150" autofocus="" required="" id="id_username">
+			<small style="color: grey">Обязательное поле*<small>
+		</p>
+		<p>
+			<input type="text" class="reg-name" placeholder="Ваше имя" name="first_name" maxlength="30" id="id_first_name">
+			<small style="color: grey">Обязательное поле*</small>
+		</p>
     
-      <p>
-        <input type="password" placeholder="Пароль" class="reg-name" name="password1" required="" id="id_password1">
-        
-          <small style="color: grey">Ваш пароль не должен совпадать с вашим именем. Ваш пароль не может состоять только из цифр.</small>
-      </p>
+		<p>
+			<input type="text" class="reg-name" placeholder="Ваша фамилия" name="last_name" maxlength="30" id="id_last_name">
+			<small style="color: grey">Обязательное поле*</small>
+		</p>
+		<p>
+			<input type="email" class="reg-email" placeholder="Ваша почта" name="email" maxlength="254" required="" id="id_email">
+			<small style="color: grey">Ваша почта (Понадобится для подтверждения пользователя).</small>
+		</p>
     
-      <p>
-        <input type="password" placeholder="Подтвердите пароль" class="reg-name" name="password2" required="" id="id_password2">
+		<p>
+			<input type="password" placeholder="Пароль" class="reg-name" name="password1" required="" id="id_password1">
         
-          <small style="color: grey">Для подтверждения введите, пожалуйста, пароль ещё раз.</small>
-      </p>
-    <div class="g-recaptcha" data-sitekey="6LeFeGEUAAAAAGHmCmWYFf_L7Z8-Cl7miccxQwjA"></div>
-    <p class="form-submit">
-		<input name="submit" type="submit" id="reg-submit" value="Зарегистрироваться">
-	</p>
-  </form>
-  </div>
-  </div>
+			<small style="color: grey">Ваш пароль не должен совпадать с вашим именем. Ваш пароль не может состоять только из цифр.</small>
+		</p>
+    
+		<p>
+			<input type="password" placeholder="Подтвердите пароль" class="reg-name" name="password2" required="" id="id_password2">
+        
+			<small style="color: grey">Для подтверждения введите, пожалуйста, пароль ещё раз.</small>
+		</p>
+		<div class="g-recaptcha" data-sitekey="{{ google_key }}"></div>
+		<p class="form-submit">
+			<input name="submit" type="submit" id="reg-submit" value="Зарегистрироваться">
+		</p>
+	</form>
+	</div>
+	{% endif %} 
+	</div>
 {% endblock %}

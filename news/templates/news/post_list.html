@@ -4,18 +4,27 @@
  {% for post in posts %}
   <div class="post">
     <div class="post-margin">
-		
-		<div class="post-avatar">
-            <img alt='' src='http://1.gravatar.com/avatar/16afd22c8bf5c2398b206a76c9316a3c?s=70&amp;d=http%3A%2F%2F1.gravatar.com%2Favatar%2Fad516503a11cd5ca435acc9bb6523536%3Fs%3D70&amp;r=G' class='avatar avatar-70 photo' height='70' width='70' />               
-			</div>
                 
             <h4><a href="{% url 'post_detail' pk=post.pk %}" class="title">{{ post.title }}</a></h4>
                 	<ul class="post-status">
-                    <li><i class="fa fa-clock-o"></i>
+						<li><i class="fa fa-clock-o"></i>
 							  {% if post.published_date %}
 								{{ post.created_date }}
-						{% endif %}</li>
-                    </ul></div>
+							  {% endif %}
+						</li>
+                    </ul>
+	</div>
+					{% if post.image %}
+					<div class="featured-image">
+						<img src="{{ post.image.url }}" class="attachment-post-standard ">                    
+						<div class="post-icon">
+							<span class="fa-stack fa-lg">
+								<i class="fa fa-circle fa-stack-2x"></i>
+								<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
+							</span>
+						</div>
+                    </div>
+					{% endif %}
                     <div class="clear"></div>
         <div class="post-margin">
 			<p style="padding-left:3%">{{ post.text|linebreaksbr }}</p>

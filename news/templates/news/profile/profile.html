@@ -1,0 +1,11 @@
+{% extends "news/base.html" %}
+{% block content %}
+  <div class="reg-container">
+  {% if user.is_authenticated %}
+	<h6 id="reg-header">Profile</h6>
+	{{ profile_form }}
+  {% else %}
+  <h6 id="reg-header"></h6>
+	{% endif %} 
+	</div>
+{% endblock %}

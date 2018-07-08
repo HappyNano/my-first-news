@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect
@@ -16,6 +17,7 @@ from django.conf import settings
 from g_recaptcha.validate_recaptcha import validate_captcha
 
 from .forms import CommentForm
+from .forms import ProfileForm
 
 from django.contrib.auth.models import User
 from django.utils.encoding import force_text
@@ -24,8 +26,10 @@ from django.utils.http import urlsafe_base64_decode
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'news/post_list.html', {'posts': posts})
+    return render(request, 'news/post_list.html', {'posts': posts,})
 
+from django.conf import settings
+		
 @validate_captcha
 def post_detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -48,10 +52,30 @@ def post_detail(request, pk):
                   'news/post_detail.html',
                  {'post': post,
                   'comments': comments,
-                  'comment_form': comment_form,
-				  '6LeFeGEUAAAAAGHmCmWYFf_L7Z8-Cl7miccxQwjA': settings.GOOGLE_RECAPTCHA_SITE_KEY,})
+				  'google_key': settings.GOOGLE_RECAPTCHA_SITE_KEY,})
 
-
+def profile(request):
+    if request.method == 'POST':
+        form = ProfileForm(request.POST)
+        if form.is_valid():
+            user = form.save(commit=False)
+            user.save()
+            form.save()
+            current_site = get_current_site(request)
+            subject = "Активация аккаунта CoinCraft'а"
+            message = render_to_string('news/account_activation_email.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+            user.email_user(subject, message)
+            return redirect('account_activation_sent')
+    else:
+        profile_form = ProfileForm(instance=request.user.profile)
+    return render(request, 'news/profile/profile.html', {'profile_form': profile_form})
+	
+	
 def about(request):
     return render(request, 'news/about.html')
 
@@ -59,29 +83,24 @@ def login(request):
     username = request.POST['username']
     password = request.POST['password']
     user = auth.authenticate(username=username, password=password)
-    if user is not None and user.is_active:
+    if user is not None:
         # Правильный пароль и пользователь "активен"
         auth.login(request, user)
         # Перенаправление на "правильную" страницу
         return HttpResponseRedirect("/account/loggedin/")
-    else:
-        # Отображение страницы с ошибкой
-        return HttpResponseRedirect("/account/invalid/")
 
 def logout(request):
     auth.logout(request)
     # Перенаправление на страницу.
     return HttpResponseRedirect("/account/loggedout/")
-	
-	
+
+
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
 from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
 from .forms import SignUpForm
 from .tokens import account_activation_token
-
-from django.conf import settings
 
 @validate_captcha
 def signup(request):
@@ -91,8 +110,9 @@ def signup(request):
             user = form.save(commit=False)
             user.is_active = False
             user.save()
+            form.save()
             current_site = get_current_site(request)
-            subject = 'Activate Your MySite Account'
+            subject = "Активация аккаунта CoinCraft'а"
             message = render_to_string('news/account_activation_email.html', {
                 'user': user,
                 'domain': current_site.domain,
@@ -103,8 +123,8 @@ def signup(request):
             return redirect('account_activation_sent')
     else:
         form = SignUpForm()
-    return render(request, 'news/signup.html', {'6LeFeGEUAAAAAGHmCmWYFf_L7Z8-Cl7miccxQwjA': settings.GOOGLE_RECAPTCHA_SITE_KEY,})
-	
+    return render(request, 'news/signup.html', {'google_key': settings.GOOGLE_RECAPTCHA_SITE_KEY,})
+
 def activate(request, uidb64, token):
     try:
         uid = force_text(urlsafe_base64_decode(uidb64))
@@ -120,6 +140,7 @@ def activate(request, uidb64, token):
     else:
         return render(request, 'news/account_activation_invalid.html')
 
-		
+
 def account_activation_sent(request):
 		return render(request, 'news/account_activation_sent.html')
+		

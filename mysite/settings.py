@@ -25,7 +25,6 @@ SECRET_KEY = '02t#n0wv(+a9rq&-bhp!4mrvk#rfw!n#tahje5yj26k5w_+82d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
 ALLOWED_HOSTS = ['127.0.0.1', 'happyuser.pythonanywhere.com']
 
 # Application definition
@@ -37,9 +36,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-	'django.contrib.sites',
+    'django.contrib.sites',
 	'news',
 	'g_recaptcha',
+	'userprofile',
 ]
 
 MIDDLEWARE = [
@@ -57,7 +57,7 @@ ROOT_URLCONF = 'mysite.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['./templates',],
+        'DIRS': ['/home/HappyUser/my-first-news/templates/', './templates/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -119,19 +119,20 @@ USE_TZ = True
 DEFAULT_CHARSET='utf-8'
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.11/howto/static-files/
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
+MEDIA_URL = '/static/media/'
+MEDIA_ROOT = 'C:/Users/Дрэй/Desktop/ /ффф/mysiteee/my-first-news/news/static/media/'
+
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
 
-# добавляем приложение в setting.py
-ACCOUNT_ACTIVATION_DAYS = 2 # кол-во дней для хранения кода активации
 
-# для отправки кода активации
-SERVER_EMAIL = 'django@my-domain.com'
+ACCOUNT_ACTIVATION_DAYS = 2
+
+
 AUTH_USER_EMAIL_UNIQUE = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
