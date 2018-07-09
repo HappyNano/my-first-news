@@ -15,9 +15,13 @@
     <link rel='stylesheet' id='color-scheme-css' href="{% static 'css/css/color/green.css' %}" type='text/css' media='all' />
     <link rel="stylesheet" href="{% static 'css/css/zerogrid.css' %}" type="text/css" media="screen">
     <link rel="stylesheet" href="{% static 'css/css/responsive.css' %}" type="text/css" media="screen">
-    <script href="{% static 'js/ajax.js' %}"></script>
-    <script type="text/javascript" href="{% static 'js/mediaqueries.js' %}"></script>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<style>
+		body {
+			background: url({% static 'images/593187.jpg' %});
+		}
+    </style>
 </head>
 <body class="home blog">
     <!-- Start Header -->
@@ -36,10 +40,6 @@
                         <li class="menu-item"><a href="/">Главная</a></li>
                         <li class="menu-item"><a href="blog.html">Форум(Не работает)</a></li>
                         <li class="menu-item"><a href="{% url 'about'%}">О нас</a></li>
-						{% if user.is_authenticated %}
-						{% else %}
-						<li class="menu-item"><a href="{% url 'signup' %}">Регистрация</a></li>
-						{% endif %}
                     </ul>
                     <!-- End Navigation Menu -->
 
@@ -79,11 +79,9 @@
 						</fieldset>
 					</div>
 				{% else %}
-					
-						<div id="login-form" class="slow_nav">
-						<nav>
-						  <h1 class="log-head">Авторизация</h1>
-							<fieldset>
+						<div id="login-form" class="menu">
+						    <h1 class="log-head" id='but' style="display : block">Авторизация</h1>
+							<fieldset style="display: none;" id="box">
 							</br>
 							{% if form.errors %}
 								<p style="color:red;">Логин или пароль не совпадают! Попробуйте заного.</p>
@@ -102,19 +100,15 @@
 								<p class='link' ><a href="{% url 'password_reset' %}">Забыли пароль?</a><span class="info">?</span></p>
 								<input type="submit" class="log-btn" value="Вход"/>
 							</form>
- 						</fieldset> 
-						</nav>
+							</br>
+ 						</fieldset>
   						</footer>
 						</div>
-						<!-- 	<script>
-								var menuElem = document.getElementById('login-form');
-								var titleElem = menuElem.querySelector('.log-head');
-
-								titleElem.onclick = function() {
-									menuElem.classList.toggle('open');
-								};
-							</script> -->
-
+						<script type="text/javascript" src="{% static 'js/log-form.js' %}"></script>
+						</br>
+						<div id="reg-form">
+							<h1><a href="{% url 'signup' %}">Регистрация</a></h1>
+						</div>
 				{% endif %} 
 				</ul>
                     <div class="clear"></div>
@@ -135,7 +129,7 @@
         <div id="footer-container" class="col-full">
             <div class="wrap-col">
                 <!-- Footer Copyright -->
-                <p>Copyrigh &copy; 2017. Все права защищены.</p>
+                <p>Copyrigh &copy; 2017-2018. Все права защищены.</p>
                 <!-- End Footer Copyright -->
                 <div class="clear"></div>
             </div>

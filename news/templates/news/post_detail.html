@@ -27,9 +27,9 @@
 			<p style="padding-left:3%">{{ post.text|linebreaksbr }}</p>
 		</div></div>
 
-		<div class="post">
+		<div class="comment">
 			{% for comment in comments %}
-			<div class="post-margin">
+			<div class="comment-margin">
 				<h4 class="title">{{ comment.name }}</h4>
 				<ul class="post-status">
                     <li><i class="fa fa-clock-o"></i>
@@ -53,6 +53,7 @@
 				<p> <input type="hidden" name="name" maxlength="80" required="" id="id_name" value={{ user.get_username }}></p>
 				<p> <textarea name="body" class="comment-text-area" placeholder="Текст" cols="40" rows="10" required="" id="id_body"></textarea></p>
 				<div class="g-recaptcha" data-sitekey="{{ google_key }}"></div>
+				</br>
 				{% csrf_token %}
 				<p class="form-submit">
 					<input name="submit" type="submit" id="comment-submit" value="Отправить комментарий">
@@ -71,7 +72,7 @@
 	{% else %}
 	<div class="comment-container">
 		<div class="commen-form">
-			<p> Что-бы оставить комментарий, залогиньтесь </p>
+			<p> Что-бы оставить комментарий, войдите в аккаунт </p>
 		</div>
 	</div>
 	{% endif %}

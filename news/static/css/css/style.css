@@ -5,7 +5,6 @@ font-family: 'Montserrat', sans-serif;
 */
 
 body{
-	background:#f6f5f2;
 	font-family: 'Open Sans', sans-serif;
 	padding-top:30px;
 	padding-bottom:30px;
@@ -57,6 +56,7 @@ a:hover{ color:#2980b9; }
 .post{
 	background:#FFFFFF;
 	margin-bottom:40px;
+	border-radius: 8px 8px 8px 8px;
 	}
 .post .post-margin{ padding-left:8%; padding-right:8%; padding-top:5%; padding-bottom:5%; }
 .post .post-title{ margin-bottom:5px; color:#44547773; }
@@ -228,10 +228,30 @@ a:hover{ color:#2980b9; }
 
 /* Comment Form */
 .reg-form{ margin-left:40px; margin-right:40px; } 
-.reg-email, .reg-name, .reg-url{ overflow:hidden; width:50%; padding:10px; margin-bottom:30px; outline:none; background:#EEEEEE; border:none; }
-.reg-text-area{ overflow:hidden; width:95%; height:200px; margin-bottom:10px; padding:10px; outline:none; background:#EEEEEE; border:none }
+.reg-email, .reg-name, .reg-url{ width:60%; padding:13px; margin-bottom:0px; outline:none; background:#EEEEEE; border:none; }
+
 #reg-submit{ background:#343434; border:none; color:#FFFFFF; font-weight:700; text-transform:capitalize; font-size:14px; padding:10px; cursor:pointer }
 #reg-submit:hover{ background:#2980b9; }
+
+#reg-form {
+	margin: 0px ;
+	margin-left: 0;
+	width: 280px;
+    }
+
+#reg-form h1 {
+	background-color: #1E90FF;
+	border-radius: 6px 6px 6px 6px;
+	color: #fff;
+	font-size: 14px;
+	padding: 20px;
+	text-align: center;
+	text-transform: uppercase;
+    }
+
+#reg-form a {
+	color: #fff;
+    }
 
 #cancel-reg-reply-link{ font-size:14px; }
 .logged-in-as{ font-size:14px; }
@@ -245,7 +265,7 @@ a:hover{ color:#2980b9; }
 
 
 
-.comment-container{ background:#FFFFFF; padding-top:30px; padding-bottom:30px; }
+.comment-container{ background:#FFFFFF; padding-top:30px; padding-bottom:30px; border-radius: 8px 8px 8px 8px;}
 #comment-header{ text-align:center; margin-bottom:40px; padding-bottom:30px; border-bottom:1px solid #EEEEEE; }
 .comment-list{ margin-left:40px; margin-right:40px; }
 
@@ -361,8 +381,13 @@ a:hover{ color:#2980b9; }
 
 
 
-
-
+.comment{
+	background:#FFFFFF;
+	margin-bottom:40px;
+	border-radius: 8px 8px 8px 8px;
+	}
+.comment .comment-margin{ padding-left:8%; padding-right:8%; padding-top:3%; padding-bottom:0%; }
+.comment h4{ font-size:22px; }
 
 
 
@@ -415,8 +440,8 @@ a:hover{ color:#2980b9; }
     }
 
 #login-form h1 {
-	background-color: #282830;
-	border-radius: 5px 5px 0 0;
+	background-color: #FF8C00;
+	border-radius: 6px 6px 2px 2px;
 	color: #fff;
 	font-size: 14px;
 	padding: 20px;
@@ -426,7 +451,8 @@ a:hover{ color:#2980b9; }
 
 #login-form fieldset {
 	background: #fff;
-	border-radius: 0 0 5px 5px;
+	border-radius: 0px 0px 8px 8px;
+	border: 1px inset black;
 	padding-left: 20px;
 	padding-right: 20px;
 	padding-top: 0px;
@@ -619,7 +645,7 @@ a:hover{ color:#2980b9; }
 
 .log-btn {
   background: #0AC986;
-  dispaly: inline-block;
+  display: inline-block;
   width: 100%;
   font-size: 16px;
   height: 50px;
@@ -631,21 +657,20 @@ a:hover{ color:#2980b9; }
   border-radius: 4px;
 }
  
- 
+ /*
 .slow_nav nav fieldset{
     top:0px;
     font-size:15px;
  
-/* Данные строки нужны для правильной работы анимации */
+
     max-height:0px;
     overflow:hidden;
     -webkit-transition:max-height 1s linear;
     -moz-transition:max-height 1s linear;
     transition:max-height 1s linear;
-/* конец */
+
 }
  
 .slow_nav nav:hover fieldset{
     max-height:500px;
-}
- 
+}*/
