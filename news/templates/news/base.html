@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load avatar_tags %}
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,13 +18,14 @@
     <link rel="stylesheet" href="{% static 'css/css/responsive.css' %}" type="text/css" media="screen">
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 	<style>
 		body {
 			background: url({% static 'images/593187.jpg' %});
 		}
     </style>
 </head>
-<body class="home blog">
+<body>
     <!-- Start Header -->
     <div class="container zerogrid">
         <div class="col-full">
@@ -55,6 +57,15 @@
 
         <!-- Start Posts Container -->
         <div class="col-2-3" id="post-container">
+			{% if messages %}
+			<div class="message-contanier">
+				<ul class="messages">
+					{% for message in messages %}
+						<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+					{% endfor %}
+				</ul>
+			</div>
+			{% endif %}
             <div class="wrap-col">
                 <!-- End Post Item -->
                 <!-- Start Post Item -->
@@ -69,11 +80,12 @@
         <!-- Start Sidebar -->
         <div class="col-1-3">
             <div class="wrap-col">
-                {% if user.is_authenticated %}
+				{% if user.is_authenticated %}
 				    <div id="login-form">
 						<h1>{{ user.get_username }}</h1>
 						<fieldset>
-								<img src="{{ user.userprofile.avatar.url }}" />
+							</br>
+							<a href="{% url 'profile'%}" class='but'>Личный кабинет</a>
 						    {% if user.profile.email_confirmed is True %} {% else %}<p style="color:red;">Подтвердите вашу почту</p> {% endif %}
 							<p><a type="submit" href="{% url 'logout'%}?next={{request.path}}">Выйти</a></p>
 						</fieldset>
@@ -83,9 +95,6 @@
 						    <h1 class="log-head" id='but' style="display : block">Авторизация</h1>
 							<fieldset style="display: none;" id="box">
 							</br>
-							{% if form.errors %}
-								<p style="color:red;">Логин или пароль не совпадают! Попробуйте заного.</p>
-							{% endif %}
 							<form method="post" action="{% url 'login' %}">
 								{% csrf_token %}
 								<div class="form-group ">
@@ -108,9 +117,9 @@
 						</br>
 						<div id="reg-form">
 							<h1><a href="{% url 'signup' %}">Регистрация</a></h1>
+							<small>Еще не с нами? Скорее регистрируйся!</small>
 						</div>
 				{% endif %} 
-				</ul>
                     <div class="clear"></div>
             </div>
 			<div class="clear"></div>
@@ -118,7 +127,6 @@
     </div>        <!-- End Sidebar -->
 
     <div class="clear"></div>
-    </div>
     <!-- End Main Container -->
     <!-- Start Footer -->
     <div class="spacing-30"></div>

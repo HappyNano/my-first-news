@@ -24,7 +24,7 @@
 			{% endif %}
                     <div class="clear"></div>
         <div class="post-margin">
-			<p style="padding-left:3%">{{ post.text|linebreaksbr }}</p>
+			<p style="padding-left:3%">{{ post.text_full|linebreaksbr }}</p>
 		</div></div>
 
 		<div class="comment">
@@ -42,7 +42,7 @@
 		<h6 id="comment-header">Комментариев нету </br> Добавь новый комментарий</h6>
 				{% endfor %}
 		{% if new_comment %}
-			<h2>Your comment has been added.</h2>
+			<h2>Ваш коммент добавлен.</h2>
 		{% else %}
     {% if user.is_authenticated %}
 	 {% if user.profile.email_confirmed is True %}
@@ -50,14 +50,12 @@
 	 <div class="commen-form">
 		<div id="respond" class="comment-respond">
 			<form action="." method="post" class="comment-form">
-				<p> <input type="hidden" name="name" maxlength="80" required="" id="id_name" value={{ user.get_username }}></p>
-				<p> <textarea name="body" class="comment-text-area" placeholder="Текст" cols="40" rows="10" required="" id="id_body"></textarea></p>
+				<input type="hidden" name="name" maxlength="80" required="" id="id_name" value={{ user.get_username }}>
+				<textarea name="body" class="comment-text-area" placeholder="Текст" cols="40" rows="10" required="" id="id_body"></textarea>
 				<div class="g-recaptcha" data-sitekey="{{ google_key }}"></div>
 				</br>
 				{% csrf_token %}
-				<p class="form-submit">
-					<input name="submit" type="submit" id="comment-submit" value="Отправить комментарий">
-				</p>
+				<input name="submit" type="submit" id="comment-submit" value="Отправить комментарий">
 			</form>
 		</div>
      </div>

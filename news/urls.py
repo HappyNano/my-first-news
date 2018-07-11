@@ -13,10 +13,10 @@ urlpatterns = [
     url(r'^accounts/logout/$', logout),
 	url(r'^signup/$', views.signup, name='signup'),
 	url(r'^profile/$', views.profile, name='profile'),
+	url(r'^change_password/$', views.change_password, name='change_password'),
 ]
 
 urlpatterns += [
-    url(r'^account_activation_sent/$', views.account_activation_sent, name='account_activation_sent'),
     url(r'^activate/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         views.activate, name='activate'),
 ]

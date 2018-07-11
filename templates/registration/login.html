@@ -1,7 +1,36 @@
-{% extends "news/base.html" %}
+{% extends 'news/base.html' %}
 
 {% block content %}
+<div class="reg-container">
+	<div class="reg-form">
+		<h1 id="reg-header" onclick="test()">Авторизация</h1>
+			</br>
+			{% if form.errors %}
+				<script type="text/javascript">
+					swal({
+						icon: "error",
+						text: "Логин или пароль не совпадают! Попробуйте заного",
+						closeOnClickOutside: false,
+					});
+				</script>
+				<p style="color:red;">Логин или пароль не совпадают! Попробуйте заного.</p>
+			{% endif %}
+			<form method="post" action="{% url 'login' %}">
+				{% csrf_token %}
+				<div class="form-group ">
+					<input type="login" name="username" class="form-control" placeholder="Имя пользователя " maxlength="254" required="" id="id_username">
+					<i class="fa fa-user"></i>
+				</div>
+				<div class="form-group log-status">
+					<input type="password" name="password" class="form-control" placeholder="Пароль "  required="" id="id_password">
+					<i class="fa fa-lock"></i>
+				</div>
 
-<p style="color:red;">Логин или пароль не совпадают! Попробуйте заного.</p>
-
+				<p class='link'><a href="{% url 'password_reset' %}">Забыли пароль?</a><span class="info">?</span></p>
+					<input type="submit" style="background-color: #FFA500; font-weight: bold;" class="log-btn" value="Вход"/>
+			</form>
+			</br>
+		</footer>
+	</div>
+</div>
 {% endblock %}

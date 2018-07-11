@@ -23,6 +23,9 @@ from django.contrib.auth.models import User
 from django.utils.encoding import force_text
 from django.utils.http import urlsafe_base64_decode
 
+from django.contrib.auth.decorators import login_required
+	
+from django.contrib.auth import update_session_auth_hash
 
 def post_list(request):
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
@@ -54,28 +57,38 @@ def post_detail(request, pk):
                   'comments': comments,
 				  'google_key': settings.GOOGLE_RECAPTCHA_SITE_KEY,})
 
+from django.contrib import messages
+from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+
+def change_password(request):
+    if request.method == 'POST':
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)  # Important!
+            messages.success(request, 'Your password was successfully updated!')
+            return redirect('change_password')
+        else:
+            messages.error(request, 'Пожалуйста, исправьте ошибку ниже.')
+    else:
+        form = PasswordChangeForm(request.user)
+    return render(request, 'news/profile/password_change.html', {
+        'form': form
+    })
+
+@login_required
 def profile(request):
     if request.method == 'POST':
         form = ProfileForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
             user.save()
-            form.save()
-            current_site = get_current_site(request)
-            subject = "Активация аккаунта CoinCraft'а"
-            message = render_to_string('news/account_activation_email.html', {
-                'user': user,
-                'domain': current_site.domain,
-                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-                'token': account_activation_token.make_token(user),
-            })
-            user.email_user(subject, message)
-            return redirect('account_activation_sent')
+			
     else:
         profile_form = ProfileForm(instance=request.user.profile)
     return render(request, 'news/profile/profile.html', {'profile_form': profile_form})
-	
-	
+
 def about(request):
     return render(request, 'news/about.html')
 
@@ -87,7 +100,7 @@ def login(request):
         # Правильный пароль и пользователь "активен"
         auth.login(request, user)
         # Перенаправление на "правильную" страницу
-        return HttpResponseRedirect("/account/loggedin/")
+    return render(request, '/')
 
 def logout(request):
     auth.logout(request)
@@ -120,7 +133,7 @@ def signup(request):
                 'token': account_activation_token.make_token(user),
             })
             user.email_user(subject, message)
-            return redirect('account_activation_sent')
+            messages.info(request, 'Мы отправили инструкции на вашу почту. Если в течении нескольки минут письмо не пришло, проверьте "Спам"')
     else:
         form = SignUpForm()
     return render(request, 'news/signup.html', {'google_key': settings.GOOGLE_RECAPTCHA_SITE_KEY,})
@@ -136,11 +149,7 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.profile.email_confirmed = True
         user.save()
-        return render(request, 'news/success_reg.html')
+        messages.info(request, 'Вы успешно зарегистрировались, теперь войдите в свою учетную запись.')
     else:
-        return render(request, 'news/account_activation_invalid.html')
-
-
-def account_activation_sent(request):
-		return render(request, 'news/account_activation_sent.html')
+        messages.error(request, 'Неправильная ссылка!')
 		

@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 	'news',
 	'g_recaptcha',
 	'userprofile',
+	'avatar',
 ]
 
 MIDDLEWARE = [
@@ -105,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'ru-ru'
+LANGUAGE_CODE = 'Ru-ru'
 
 TIME_ZONE = 'Europe/Moscow'
 
@@ -127,7 +128,9 @@ MEDIA_ROOT = 'C:/Users/Дрэй/Desktop/ /ффф/mysiteee/my-first-news/news/st
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'
+LOGIN_URL = '/'
 
+MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
 ACCOUNT_ACTIVATION_DAYS = 2
 
@@ -144,3 +147,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 GOOGLE_RECAPTCHA_SITE_KEY = '6LeFeGEUAAAAAGHmCmWYFf_L7Z8-Cl7miccxQwjA'
 GOOGLE_RECAPTCHA_SECRET_KEY = '6LeFeGEUAAAAACAIBBtfToWkeSseXHihcmbKomdc'
+
+AVATAR_DEFAULT_URL='http://prosobak.com/wp-content/uploads/2015/10/Zapadno-sibirskaya-layka-na-gazone-lodozo.com_-600x476.jpg'
+AVATAR_GRAVATAR_DEFAULT='http://prosobak.com/wp-content/uploads/2015/10/Zapadno-sibirskaya-layka-na-gazone-lodozo.com_-600x476.jpg'
