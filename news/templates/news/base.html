@@ -6,144 +6,185 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta charset="utf-8"/>
-    <title>Сайтик</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#FFFF00">
 	<link rel="shortcut icon" href="{% static 'images/footer-log3.png' %}" type="image/png">
-    <link rel='stylesheet' id='reset-css' href="{% static '/css/css/reset.css' %}" type='text/css' media='all' />
-    <link rel='stylesheet' id='superfish-css' href="{% static 'css/css/superfish.css' %}" type='text/css' media='all' />
-    <link rel='stylesheet' id='fontawsome-css' href="{% static 'css/css/font-awsome/css/font-awesome.css' %}" type='text/css' media='all' />
-    <link rel='stylesheet' id='orbit-css-css' href="{% static 'css/css/orbit.css' %}" type='text/css' media='all' />
-    <link rel='stylesheet' id='style-css' href="{% static 'css/css/style.css' %}" type='text/css' media='all' />
-    <link rel='stylesheet' id='color-scheme-css' href="{% static 'css/css/color/green.css' %}" type='text/css' media='all' />
-    <link rel="stylesheet" href="{% static 'css/css/zerogrid.css' %}" type="text/css" media="screen">
-    <link rel="stylesheet" href="{% static 'css/css/responsive.css' %}" type="text/css" media="screen">
+    <title>CoinCraft</title>
+	<!-- CSS файлы-->
+	<link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css'>
+	
+	<link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
+	<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+	<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.2.0/css/solid.css" integrity="sha384-wnAC7ln+XN0UKdcPvJvtqIH3jOjs9pnKnq9qX68ImXvOGz2JuFoEiCjT8jyZQX2z" crossorigin="anonymous">
+	<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.2.0/css/fontawesome.css" integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous">
+	
+	<!-- JavaScript файлы -->
+	<script src="//unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<style>
-		body {
-			background: url({% static 'images/593187.jpg' %});
-		}
-    </style>
+	
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="{% static 'slick/slick.min.js' %}"></script>
+	<script>
+    var showingTooltip;
+
+    document.onmouseover = function(e) {
+      var target = e.target;
+
+      var tooltip = target.getAttribute('data-tooltip');
+      if (!tooltip) return;
+
+      var tooltipElem = document.createElement('div');
+      tooltipElem.className = 'tooltip';
+      tooltipElem.innerHTML = tooltip;
+      document.body.appendChild(tooltipElem);
+	  
+      var coords = target.getBoundingClientRect();
+
+      var left = coords.left + (target.offsetWidth - tooltipElem.offsetWidth) / 2;
+      if (left < 0) left = 0; // не вылезать за левую границу окна
+
+      var top = coords.top - tooltipElem.offsetHeight - 5;
+
+      tooltipElem.style.left = left + 'px';
+      tooltipElem.style.top = top + 'px';
+
+      showingTooltip = tooltipElem;
+    };
+
+    document.onmouseout = function(e) {
+
+      if (showingTooltip) {
+		document.body.removeChild(showingTooltip);
+        showingTooltip = null;
+      }
+
+    };
+  </script>
 </head>
 <body>
-    <!-- Start Header -->
-    <div class="container zerogrid">
-        <div class="col-full">
-            <div class="wrap-col">
-                <div id="header-nav-container">
 
-                    <a href="/">
-                        <img src="{% static 'images/log3.png' %}" width="271px" height="52px" id="logo" />
-                    </a>
+	<!-- head -->
 
-                    <!-- Navigation Menu -->
+	<div class="head">
+		<div class="head-container">
+			<ul>
+				<a href="/"><img src="{% static 'images/log2.png' %}" width="261px" height="60px" /></a>
+				<li><a href="{% url 'about'%}">О нас</a></li>
+                <li><a href="#">Форум(не работает)</a></li>
+                <li><a href="/" class="active">Главная</a></li>
+            </ul>
+		</div>
+	</div>
 
-                    <ul class="sf-menu">
-                        <li class="menu-item"><a href="/">Главная</a></li>
-                        <li class="menu-item"><a href="blog.html">Форум(Не работает)</a></li>
-                        <li class="menu-item"><a href="{% url 'about'%}">О нас</a></li>
-                    </ul>
-                    <!-- End Navigation Menu -->
+	<!-- zerogrid -->
 
-                    <div class="clear"></div>
-
-                </div>
-            </div>
-        </div>
-        <div class="clear"></div>
-    </div>
-    <div class="spacing-30"></div>
-    <div class="container zerogrid">
-
-        <!-- Start Posts Container -->
-        <div class="col-2-3" id="post-container">
-			{% if messages %}
-			<div class="message-contanier">
-				<ul class="messages">
-					{% for message in messages %}
-						<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-					{% endfor %}
-				</ul>
+	<div class="zerogrid">
+	<div class="right">
+		<!-- Login-Form -->
+			{% if user.is_authenticated %}
+			<div class="element">
+				<div class="profile-small">
+					<fieldset class="profile-small">
+						{% avatar request.user class="profile-small-avatar" %}
+						<div class="profile-small-head">
+							<p><i class="fa fa-user"></i>{{ user.get_username }}</p>
+							<a href="{% url 'profile'%}" class='profile-link-lk'>Личный кабинет</a>
+						</div>
+					    {% if user.profile.email_confirmed is True %} {% else %}<p style="color:red;">Подтвердите вашу почту</p> {% endif %}
+						<p><a type="submit" href="{% url 'logout'%}?next={{request.path}}">Выйти</a></p>
+					</fieldset>
+				</div>
 			</div>
-			{% endif %}
-            <div class="wrap-col">
-                <!-- End Post Item -->
-                <!-- Start Post Item -->
-                {% block content %}
-                {% endblock %}
-                <!-- End Post Item -->
-
-                <div class="clear"></div>
-            </div>
-        </div>
-        <!-- End Posts Container -->
-        <!-- Start Sidebar -->
-        <div class="col-1-3">
-            <div class="wrap-col">
-				{% if user.is_authenticated %}
-				    <div id="login-form">
-						<h1>{{ user.get_username }}</h1>
-						<fieldset>
-							</br>
-							<a href="{% url 'profile'%}" class='but'>Личный кабинет</a>
-						    {% if user.profile.email_confirmed is True %} {% else %}<p style="color:red;">Подтвердите вашу почту</p> {% endif %}
-							<p><a type="submit" href="{% url 'logout'%}?next={{request.path}}">Выйти</a></p>
-						</fieldset>
+			{% else %}
+			<div class="element">
+				<div id="login-form">
+					<div id="log-head" class="fade" style="display:block;">
+						<h1>Авторизация</h1>
+						<small> Нажми на меня) </small>
 					</div>
-				{% else %}
-						<div id="login-form" class="menu">
-						    <h1 class="log-head" id='but' style="display : block">Авторизация</h1>
-							<fieldset style="display: none;" id="box">
-							</br>
-							<form method="post" action="{% url 'login' %}">
-								{% csrf_token %}
-								<div class="form-group ">
-									<input type="login" name="username" class="form-control" placeholder="Имя пользователя " maxlength="254" required="" id="id_username">
-									<i class="fa fa-user"></i>
-								</div>
-								<div class="form-group log-status">
-									<input type="password" name="password" class="form-control" placeholder="Пароль "  required="" id="id_password">
-									<i class="fa fa-lock"></i>
-								</div>
+					<div id="log-head" style="display:none;">
+						<h1>Авторизация</h1>
+					</div>
+					<fieldset style="display: none;" id="box">
+						<br>
+						<form method="post" action="{% url 'login' %}">
+							{% csrf_token %}
+							<div class="form-group ">
+								<input type="login" name="username" class="form-control" placeholder="Имя пользователя " maxlength="25" required="" id="id_username">
+								<i class="fa fa-user"></i>
+							</div>
+							<div class="form-group log-status">
+								<input type="password" name="password" class="form-control" placeholder="Пароль " required="" id="id_password">
+								<div class="change-password fa" style="font-size:15px;"  id="toggle_password_button" data-tooltip="Показать пароль" onclick="toggle_password('id_password',true)">•••</div>
+							</div>
+							<p class="link"><a href="{% url 'password_reset' %}">Забыли пароль?</a><span class="info" data-tooltip="Забыли пароль? Нажимайте сюда!">?</span></p>
+							<input type="submit" class="auth-btn fade" value="Вход">
+						</form>
+						<br>
+					</fieldset>		
+				</div>
+		</div>
+		<div class="element">
+			<div class="reg-link fade">
+				<h1><a href="{% url 'signup' %}">Регистрация</a></h1>
+				<small>Еще не с нами? Скорее регистрируйся!</small>
+			</div>
+		</div>
+		{% endif %} 
+		
+		<!-- End Login-Form -->
+		
+	</div>
+	
+	{% block content %}
+	{% endblock %}
+	</div>
+	
+	{% block JavaScript %}
+	{% endblock %}
+	
+	
 
-								<p class='link' ><a href="{% url 'password_reset' %}">Забыли пароль?</a><span class="info">?</span></p>
-								<input type="submit" class="log-btn" value="Вход"/>
-							</form>
-							</br>
- 						</fieldset>
-  						</footer>
-						</div>
-						<script type="text/javascript" src="{% static 'js/log-form.js' %}"></script>
-						</br>
-						<div id="reg-form">
-							<h1><a href="{% url 'signup' %}">Регистрация</a></h1>
-							<small>Еще не с нами? Скорее регистрируйся!</small>
-						</div>
-				{% endif %} 
-                    <div class="clear"></div>
-            </div>
-			<div class="clear"></div>
-        </div>
-    </div>        <!-- End Sidebar -->
-
-    <div class="clear"></div>
-    <!-- End Main Container -->
-    <!-- Start Footer -->
-    <div class="spacing-30"></div>
-    <div class="container zerogrid">
-		<!-- Footer Logo -->
-		<img src="{% static 'images/footer-log3.png' %}" height="73" width="73" id="footer-logo" />
-		<!-- End Footer Logo -->
-        <div id="footer-container" class="col-full">
-            <div class="wrap-col">
-                <!-- Footer Copyright -->
-                <p>Copyrigh &copy; 2017-2018. Все права защищены.</p>
-                <!-- End Footer Copyright -->
-                <div class="clear"></div>
-            </div>
-        </div>
-    </div>
-    <!-- End Footer -->
-
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("div#log-head").click(function() {
+			$("fieldset#box").slideToggle();
+			$("div#log-head").slideToggle();
+		});
+	});
+</script>
+	
+<script type="text/javascript">
+function toggle_password(element_id, show_text) {
+	if(document.getElementById) {
+		var password_input = document.getElementById(element_id);
+		var new_input      = document.createElement('input');
+		with(new_input) {
+			id          = password_input.id;
+			name        = password_input.name;
+			value       = password_input.value;
+			size        = password_input.size;
+			placeholder = password_input.placeholder;
+			className   = password_input.className;
+			type        = show_text ? 'text' : 'password';
+		}
+		password_input.parentNode.replaceChild(new_input, password_input);
+		
+		var toggle_button = document.getElementById("toggle_password_button");
+		var new_toggle_button = document.createElement('div');
+		new_toggle_button.id          = toggle_button.id;
+		new_toggle_button.className   = toggle_button.className;
+		new_toggle_button.style       = "font-size:15px;";
+		new_toggle_button.innerHTML   = show_text ? 'abc' : '•••';
+		
+		toggle_button.parentNode.replaceChild(new_toggle_button, toggle_button);
+		document.getElementById("toggle_password_button").addEventListener('click',function(){show_text ? toggle_password('id_password',false) : toggle_password('id_password',true);},false);
+	}
+}
+</script>
+	
 </body>
 </html>

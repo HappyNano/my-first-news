@@ -4,13 +4,13 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render, redirect
 from django.utils import timezone
-from .models import Post, Comment
+from .models import Post, Small_post, Comment
 from django.shortcuts import render, get_object_or_404
 from django.views.generic.edit import FormView
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib import auth
 from django.contrib.auth import login, authenticate
-
+from django.http import HttpResponseRedirect
 from django.core.mail import send_mail
 
 from django.conf import settings
@@ -28,8 +28,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
 
 def post_list(request):
+    small_posts = Small_post.objects.filter(published_date__lte=timezone.now()).order_by('published_date') 
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
-    return render(request, 'news/post_list.html', {'posts': posts,})
+    return render(request, 'news/post_list.html', {'posts':  reversed(posts), 'small_posts': reversed(small_posts),})
 
 from django.conf import settings
 		
@@ -133,7 +134,7 @@ def signup(request):
                 'token': account_activation_token.make_token(user),
             })
             user.email_user(subject, message)
-            messages.info(request, 'Мы отправили инструкции на вашу почту. Если в течении нескольки минут письмо не пришло, проверьте "Спам"')
+            messages.success(request, 'Мы отправили инструкции на вашу почту. Если в течении нескольки минут письмо не пришло, проверьте "Спам"')
     else:
         form = SignUpForm()
     return render(request, 'news/signup.html', {'google_key': settings.GOOGLE_RECAPTCHA_SITE_KEY,})
@@ -149,7 +150,10 @@ def activate(request, uidb64, token):
         user.is_active = True
         user.profile.email_confirmed = True
         user.save()
-        messages.info(request, 'Вы успешно зарегистрировались, теперь войдите в свою учетную запись.')
+        return render(request, 'news/success_reg.html')
     else:
-        messages.error(request, 'Неправильная ссылка!')
+        return render(request, 'news/account_activation_invalid.html')
+
 		
+def account_activation_sent(request):
+		return render(request, 'news/account_activation_sent.html')		

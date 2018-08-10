@@ -1,10 +1,9 @@
 {% extends "news/base.html" %}
 {% load avatar_tags %}
 {% block content %}
-  <div class="profile-contanier">
+  <div class="container">
   {% if user.is_authenticated %}
-	<h6 id="profile-header">Личный кабинет</h6>
-	<div class="profile-form">
+		<h1>Личный кабинет</h1>
 		<div id="avatar-block">
 			{% avatar request.user class="profile-avatar" %}
 			<p style="color: black; font-weight: bold;">{{ request.user.get_username }}</p>
@@ -22,7 +21,6 @@
 			</div>
 		</div>
 		<a href="/change_password">Поменять пароль</a>
-	</div>
   {% else %}
   <h6 id="profile-header">Профиль доступен только авторизированным пользователям</h6>
   {% endif %} 

@@ -1,80 +1,65 @@
 {% extends 'news/base.html' %}
 
 {% block content %}
+<div class="posts-container">
     <div class="post">
-    <div class="post-margin">           
-            <h4 class="title">{{ post.title }}</h4>
-                	<ul class="post-status">
-                    <li><i class="fa fa-clock-o"></i>
-							  {% if post.published_date %}
-								{{ post.created_date }}
-						{% endif %}</li>
-                    </ul>
+		<div class="post-block">
+			<h2>{{ post.title }}</h2>
+			<ul>
+				<li><i class="fa fa-calendar-alt"></i>							  
+					{% if post.published_date %}
+						{{ post.created_date }}
+					{% endif %}  
+				</li>
+			</ul>
+		</div>
+		<div class="post-block" style="margin-left: 1%; padding-top:0;">
+			<p> {{ post.text_full|linebreaksbr }} </p>
+		</div>
 	</div>
-			{% if post.image %}
-			<div class="featured-image">
-				<img src="{{ post.image.url }}" class="attachment-post-standard ">                    
-				<div class="post-icon">
-					<span class="fa-stack fa-lg">
-						<i class="fa fa-circle fa-stack-2x"></i>
-						<i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-					</span>
-				</div>
-			</div>
-			{% endif %}
-                    <div class="clear"></div>
-        <div class="post-margin">
-			<p style="padding-left:3%">{{ post.text_full|linebreaksbr }}</p>
-		</div></div>
 
 		<div class="comment">
 			{% for comment in comments %}
-			<div class="comment-margin">
-				<h4 class="title">{{ comment.name }}</h4>
-				<ul class="post-status">
-                    <li><i class="fa fa-clock-o"></i>
-						{{ comment.created }}	</li>
-                </ul>			
+			<div class="comment-block">
+				<div class="comment-status">
+					<h4>{{ comment.name }}</h4>
+					<ul><li><i class="fa fa-clock"></i>{{ comment.created }}</li></ul>	
+				</div>
 				<p style="padding-left:3%">{{ comment.body|linebreaks }}</p>
 			</div>
 			<hr/>
 				{% empty %}
-		<h6 id="comment-header">Комментариев нету </br> Добавь новый комментарий</h6>
+		<h6 id="reg-header">Комментариев нету </br> Добавь новый комментарий</h6>
 				{% endfor %}
 		{% if new_comment %}
 			<h2>Ваш коммент добавлен.</h2>
 		{% else %}
     {% if user.is_authenticated %}
 	 {% if user.profile.email_confirmed is True %}
-     <div class="comment-container">
-	 <div class="commen-form">
-		<div id="respond" class="comment-respond">
-			<form action="." method="post" class="comment-form">
-				<input type="hidden" name="name" maxlength="80" required="" id="id_name" value={{ user.get_username }}>
+     <div class="comment-block">
+		<form action="." method="post" class="comment-form">
+			<input type="hidden" name="name" maxlength="80" required="" id="id_name" value={{ user.get_username }}>
+			<div class="input-element">
 				<textarea name="body" class="comment-text-area" placeholder="Текст" cols="40" rows="10" required="" id="id_body"></textarea>
-				<div class="g-recaptcha" data-sitekey="{{ google_key }}"></div>
-				</br>
-				{% csrf_token %}
-				<input name="submit" type="submit" id="comment-submit" value="Отправить комментарий">
-			</form>
-		</div>
-     </div>
-	 </div>
-	 {% else %}
-		<div class="comment-container">
-			<div class="commen-form">
-				<p> Что-бы оставить комментарий, подтвердите почту </p>
 			</div>
+			<div class="g-recaptcha" data-sitekey="{{ google_key }}"></div>
+			</br>
+			{% csrf_token %}
+			<input type="submit" class="submit" value="Отправить комментарий">
+		</form>
+     </div>
+	 {% else %}
+		<div class="commen-block">
+			<p> Что-бы оставить комментарий, подтвердите почту </p>
 		</div>
      {% endif %}
 	{% else %}
-	<div class="comment-container">
-		<div class="commen-form">
-			<p> Что-бы оставить комментарий, войдите в аккаунт </p>
-		</div>
+	<div class="comment-block">
+		<p> Что-бы оставить комментарий, войдите в аккаунт </p>
 	</div>
 	{% endif %}
 {% endif %}
 	
 	</div>
+</div>
 {% endblock %}
