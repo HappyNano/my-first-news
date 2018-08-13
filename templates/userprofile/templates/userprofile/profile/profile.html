@@ -1,0 +1,41 @@
+{% extends "news/base.html" %}
+{% block content %}
+  <div class="container">
+  {% if user.is_authenticated %}
+		<h1>Личный кабинет</h1>
+		<div id="avatar-block">
+			<img src="{{ user.profile.avatar.url }}" class="profile-avatar">
+			<p style="color: black; font-weight: bold;">{{ request.user.get_username }}</p>
+			<a><span id="avatar-set" onclick="avatar(); return false;">Сменить аватар</span></a>
+			<div id='avatar-set-div' style='display: none;'>
+				{% if user.profile.email_confirmed is True %}
+					<form method="POST">
+						{% csrf_token %}
+						<input type="file" name="avatar" required="" id="id_avatar">
+						<input type="submit" value="Поменять">
+					</form>
+				{% else %}
+					<span style="color:red;">Подтвердите вашу почту</span> 
+				{% endif %}
+			</div>
+		</div>
+		<a href="/change_password">Поменять пароль</a>
+		<form method="post">
+			{% csrf_token %}
+			{{ profile_form.as_p }}
+			<button type="submit">Save changes</button>
+		</form>
+  {% else %}
+  <h6 id="profile-header">Профиль доступен только авторизированным пользователям</h6>
+  {% endif %} 
+  </div>
+{% endblock %}
+
+{% block JavaScript %}
+  <script>
+  function avatar(){
+    document.getElementById('avatar-set').style.display='none';
+	document.getElementById('avatar-set-div').style.display='block';
+  }
+  </script>
+{% endblock %}

@@ -2,7 +2,6 @@
 
 {% block content %}
 	<!-- Small Posts -->
-
 	<div class="your-class">
 		{% for small in small_posts %}
 		<div class="post-small" style="height: 145px;">
@@ -14,7 +13,7 @@
 
 
 	<!-- End Small Posts -->	
-	
+	{% autoescape on %}
 	<!-- Post-container -->
 	<div class="posts-container">
 	{% for post in posts %}
@@ -30,11 +29,12 @@
                 </ul>
 			</div>
 			<div class="post-block" style="margin-left: 1%; padding-top:0;">
-				<p> {{ post.text_short|linebreaksbr }} </p>
+				<p> {{ post.text_short|safe }} </p>
 			</div>
 		</div>
 	{% endfor %}
 	</div>
+	{% endautoescape %}
 {% endblock %}
 
 {% block JavaScript %}

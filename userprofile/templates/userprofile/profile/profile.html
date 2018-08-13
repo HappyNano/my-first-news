@@ -1,0 +1,34 @@
+{% extends "news/base.html" %}
+{% block content %}
+	<div class="container">
+		<h1>Личный кабинет</h1>
+		<div id="avatar-block">
+			<img src="{{ user.profile.avatar.url }}" class="profile-avatar">
+			<p style="color: black; font-weight: bold;">{{ request.user.get_username }}</p>
+			<a><span id="avatar-set" onclick="avatar(); return false;">Сменить аватар</span></a>
+			<div id='avatar-set-div' style='display: none;'>
+				{% if user.profile.email_confirmed is True %}
+					<form method="POST" enctype="multipart/form-data" action="{% url 'avatar_add' %}">
+						{% csrf_token %}
+						<input type="file" name="avatar" id="id_avatar">
+						<input type="submit" value="Поменять">
+					</form>
+				{% else %}
+					<span style="color:red;">Подтвердите вашу почту</span> 
+				{% endif %}
+			</div>	
+			<br>
+			<a href="{% url 'edit_profile' %}">Редактировать профиль</a>
+		</div>
+		<a href="{% url 'change_password' %}">Поменять пароль</a>
+	</div>
+{% endblock %}
+
+{% block JavaScript %}
+  <script>
+  function avatar(){
+    document.getElementById('avatar-set').style.display='none';
+	document.getElementById('avatar-set-div').style.display='block';
+  }
+  </script>
+{% endblock %}

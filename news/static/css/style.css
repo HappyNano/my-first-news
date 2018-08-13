@@ -224,6 +224,7 @@ a:hover{text-decoration:none;}
 	text-transform:none;
 	float: left;
 }
+.comment-avatar{ height:70px; width:70px; float:left; margin-right:20px; border-radius: 30px; }
 
 .comment p {
 	margin-bottom: 2%;
@@ -242,6 +243,27 @@ a:hover{text-decoration:none;}
 	margin-left:3px;
 	margin-right:3px;
 }
+
+.comment form {
+	height: 400px;
+}
+
+.textarea {float: left; overflow:hidden; resize: none; width: 95%; height:200px; margin-bottom:10px; padding:10px; outline:none; background:#EEEEEE; border:none; transition: 0.2s linear; -webkit-transition: 0.2s linear;}
+
+.textarea {box-shadow: 0 0 0 1px #7eb4ea inset, 0 1px 2px rgba(0,0,0,.2) inset;}
+
+.textarea:hover {
+  box-shadow: 0 0 0 1px #7eb4ea inset, 0 1px 2px rgba(0,0,0,.2) inset;
+}
+.textarea:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #7eb4ea inset, 0 3px 4px rgba(0,0,0,.2) inset, 0 0 6px rgba(35,146,243,.5);
+  border-radius: 5px;
+  transition: 0.2s linear;
+  -webkit-transition: 0.2s linear;
+}
+
+.comment .g {margin-bottom: 220px;}
 
 /* LOGIN CSS */
 
@@ -450,6 +472,7 @@ a:hover{text-decoration:none;}
 }
 
 .input-element input, textarea {position: relative; float: right; width:50%; padding:13px; margin-bottom:0px; outline:none; background:#EEEEEE; border:none; transition: 0.2s linear; -webkit-transition: 0.2s linear;}
+.input-element textarea {float: left;}
 
 .input-element textarea {box-shadow: 0 0 0 1px #7eb4ea inset, 0 1px 2px rgba(0,0,0,.2) inset; float:left;}
 
@@ -464,7 +487,9 @@ a:hover{text-decoration:none;}
   -webkit-transition: 0.2s linear;
 }
 
-.input-element .fa, .fas, .change-password {
+.input-element input:disabled {background:silver; font-weight: bold;}
+
+.input-element .fa, .fas, .fab, .change-password {
   position: absolute;
   right: 10px;
   top: 13px;
@@ -475,7 +500,8 @@ a:hover{text-decoration:none;}
 .red-input {color:red!important; box-shadow: 0 0 3px Maroon!important; border: 0.5px solid Maroon!important; border-radius: 0!important; transition: 0.2s linear; -webkit-transition: 0.2s linear;}
 .green-input{color:#33cc33!important; box-shadow: 0 0 3px #2eb82e!important; border: 0.5px solid #2eb82e!important; border-radius: 0!important; transition: 0.2s linear; -webkit-transition: 0.2s linear;}
 
-.submit {padding:5px; text-align:center; background-color:#2B2A29; border:none; color:#32CD32;}
+.submit {background:#343434; border:none; color:#FFFFFF; font-weight:700; margin-bottom:20px; text-transform:capitalize; font-size:14px; padding:10px; cursor:pointer}
+.submit:hover {opacity:0.8; background:#2980b9;}
 
 /* Profile CSS */
 
@@ -497,7 +523,7 @@ a:hover{text-decoration:none;}
 .profile-small-head .fa {font-size: 13px; margin: 2px;}
 .profile-link-lk {border-radius: 5px; font-size: 12px; font-weight: bold; background: #5ac06a; color: #fff; padding: 5px;}
 
-.profile-small-avatar {transition: .5s ease; float:left;}
+.profile-small-avatar {transition: .5s ease; float:left; height:80px; width:80px;}
 .profile-small-avatar:hover {opacity: 0.7; transition: .5s ease;}
 
 #avatar-block {

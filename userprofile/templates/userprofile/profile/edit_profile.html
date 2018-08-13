@@ -1,0 +1,46 @@
+﻿{% extends "news/base.html" %}
+{% block content %}
+	<div class="container">
+		<h1>Редактирование профиля</h1>
+		<form method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			<div class="input-element">
+				<p>Ваше имя <br><small>Как вас зовут?</small></p>
+				{{ user_form.first_name }}
+				<i class="fas fa-id-card-alt"></i>
+			</div><br>
+			<div class="input-element">
+				<p>Ваша фамилия <br><small>Как вас зовут?</small></p>
+				{{ user_form.last_name }}
+				<i class="fas fa-id-card-alt"></i>
+			</div><br>
+			<div class="input-element">
+				<p>Ваша почта <br><small>Нельзя изменить</small></p>
+				<input type="email" placeholder="Почта" name="email" maxlength="150" required="" id="id_email" value="{{ user.email }}" disabled>
+				<i class="fas fa-at"></i>
+			</div><br>
+			<div class="input-element">
+				<p>Дата <br><small>Формат: дд.мм.гггг </small></p>
+				{{ profile_form.birth_date }}
+				<i class="fas fa-calendar-alt"></i>
+			</div><br>
+			<div class="input-element">
+				<p>Ваш скайп <br><small>ГИГАБАЙТЫ СВЕЖЕЙ ИНФОРМАЦИИ*</small></p>
+				{{ profile_form.skype }}
+				<i class="fab fa-skype"></i>
+			</div><br>
+			<div class="input-element">
+				<p>Ваш вк <br><small>Ну вк должен быть</small></p>
+				{{ profile_form.vk }}
+				<i class="fab fa-vk"></i>
+			</div><br>
+			<div class="input-element">
+				<p>Ваш дискорд <br><small>Если есть</small></p>
+				{{ profile_form.discord }}
+				<i class="fab fa-discord"></i>
+			</div><br><br><br>
+			<input name="submit" type="submit" class="submit" value="Сохранить изменения">
+			{{ profile_form.birth_date.errors }}
+		</form>
+	</div>
+{% endblock %}

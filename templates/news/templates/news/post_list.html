@@ -1,0 +1,50 @@
+{% extends 'news/base.html' %}
+
+{% block content %}
+	<!-- Small Posts -->
+
+	<div class="your-class">
+		{% for small in small_posts %}
+		<div class="post-small" style="height: 145px;">
+			<h2> {{ small.title }} </h2>
+			<p style="margin-left: 1%; padding-top:0;"> {{ small.text_full|linebreaksbr }} </p>
+		</div>
+	{% endfor %}
+	</div>
+
+
+	<!-- End Small Posts -->	
+	
+	<!-- Post-container -->
+	<div class="posts-container">
+	{% for post in posts %}
+		<div class="post">
+			<div class="post-block">
+				<h2><a href="{% url 'post_detail' pk=post.pk %}"> {{ post.title }} </a></h2>
+				<ul>
+					<li><i class="fa fa-calendar-alt"></i>							  
+						{% if post.published_date %}
+							{{ post.created_date }}
+						{% endif %}  
+					</li>
+                </ul>
+			</div>
+			<div class="post-block" style="margin-left: 1%; padding-top:0;">
+				<p> {{ post.text_short|linebreaksbr }} </p>
+			</div>
+		</div>
+	{% endfor %}
+	</div>
+{% endblock %}
+
+{% block JavaScript %}
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$('.your-class').slick({
+				infinite: false,
+				slidesToShow: 2,
+				draggable: false,
+			});
+		});
+	</script>
+{% endblock %}
