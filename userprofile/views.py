@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from django.shortcuts import render, redirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 from .forms import AvatarForm, ProfileForm,  UserForm
-from django.contrib import messages
+from django.contrib import messages, auth
 from django.contrib.auth.models import User
 
 from django.contrib.sites.shortcuts import get_current_site
@@ -21,9 +22,36 @@ from django.contrib.auth.forms import PasswordChangeForm
 from g_recaptcha.validate_recaptcha import validate_captcha
 
 from django.http import JsonResponse
-import logging
+import logging, json
 logger = logging.getLogger(__name__)
 
+from django.contrib.auth import login, authenticate
+
+def login(request):
+    username = request.POST.get('username', "")
+    password = request.POST.get('password', "")
+    user = auth.authenticate(username=username, password=password)
+    if user is not None:
+        auth.login(request, user)
+    else:
+        messages.error(request, '''<script type="text/javascript" id="message-script">
+				$("fieldset#box").slideToggle(0);
+				$("div#log-head").slideToggle(0);
+				swal({
+					icon: "error",
+					text: "Логин или пароль не совпадают! Попробуйте заного",
+					closeOnClickOutside: false,
+				});
+				$("#message-script").remove();
+			</script><div style="color:red;">Логин или пароль не совпадают! Попробуйте заного</div>''')
+    return redirect('/')
+
+def logout(request):
+    auth.logout(request)
+    # Перенаправление на страницу.
+    return redirect('/')
+
+from django.core.mail import send_mail
 @validate_captcha
 def signup(request):
     ip = request.META.get('REMOTE_ADDR', '') or request.META.get('HTTP_X_FORWARDED_FOR', '')
@@ -37,17 +65,31 @@ def signup(request):
             form.save()
             current_site = get_current_site(request)
             subject = "Активация аккаунта CoinCraft'а"
-            message = render_to_string('userprofile/account_activation_email.html', {
+            html = render_to_string('userprofile/account_activation_email.html', {
                 'user': user,
                 'domain': current_site.domain,
                 'uid': urlsafe_base64_encode(force_bytes(user.pk)),
                 'token': account_activation_token.make_token(user),
             })
-            user.email_user(subject, message)
+            send_mail(
+    subject,
+    '.',
+    settings.EMAIL_HOST_USER,
+    [user.email],
+    html_message=html,)
             messages.success(request, 'Мы отправили инструкции на вашу почту. Если в течении нескольки минут письмо не пришло, проверьте "Спам"')
     else:
         form = SignUpForm()
     return render(request, 'userprofile/signup.html', {'google_key': settings.GOOGLE_RECAPTCHA_SITE_KEY, 'form': form,})
+
+def validate_username(request):
+    username = request.GET.get('username', None)
+    data = {
+        'is_taken': User.objects.filter(username__iexact=username).exists()
+    }
+    if data['is_taken']:
+        data['error_message'] = 'A user with this username already exists.'
+    return JsonResponse(data)
 
 def activate(request, uidb64, token):
     try:
@@ -62,12 +104,7 @@ def activate(request, uidb64, token):
         user.save()
         return render(request, 'userprofile/success_reg.html')
     else:
-        return render(request, 'userprofile/account_activation_invalid.html')
-
-		
-def account_activation_sent(request):
-		return render(request, 'userprofile/account_activation_sent.html')		
-
+        return render(request, 'userprofile/account_activation_invalid.html')	
 
 def change_password(request):
     ip = request.META.get('REMOTE_ADDR', '') or request.META.get('HTTP_X_FORWARDED_FOR', '')

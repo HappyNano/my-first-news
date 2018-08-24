@@ -80,11 +80,11 @@
 			$("#id_password1, #id_password2").keyup(checkPasswordMatch);
 		});
 	</script>
-	<script>
+	<script type="text/javascript">
     $(".js_username").keyup(function () {
       var form = $(this).closest("form");
       $.ajax({
-        url: form.attr("data-validate-username-url"),
+        url: "{% url 'validate_username' %}",
         data: form.serialize(),
         dataType: 'json',
         success: function (data) {

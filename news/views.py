@@ -73,31 +73,3 @@ def about(request):
     ip = request.META.get('REMOTE_ADDR', '') or request.META.get('HTTP_X_FORWARDED_FOR', '')
     logger.debug('USER: '+str(request.user.username)+' IP: '+str(ip)+' about')
     return render(request, 'news/about.html')
-
-def login(request):
-    ip = request.META.get('REMOTE_ADDR', '') or request.META.get('HTTP_X_FORWARDED_FOR', '')
-    logger.debug('USER: '+str(request.user.username)+' IP: '+str(ip)+' login')
-    username = request.POST['username']
-    password = request.POST['password']
-    user = auth.authenticate(username=username, password=password)
-    if user is not None:
-        # Правильный пароль и пользователь "активен"
-        auth.login(request, user)
-        # Перенаправление на "правильную" страницу
-    return render(request, '/')
-
-def logout(request):
-    auth.logout(request)
-    # Перенаправление на страницу.
-    return HttpResponseRedirect("/account/loggedout/")
-
-from django.http import JsonResponse
-
-def validate_username(request):
-    username = request.GET.get('username', None)
-    data = {
-        'is_taken': User.objects.filter(username__iexact=username).exists()
-    }
-    if data['is_taken']:
-        data['error_message'] = 'A user with this username already exists.'
-    return JsonResponse(data)

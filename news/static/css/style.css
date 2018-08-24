@@ -42,6 +42,8 @@ small {margin: 0; font-size:11px; color: #696969;}
   color: #fff;
   background: #2B2A29;
   font-family: 'Indie Flower', cursive;
+  -webkit-filter: drop-shadow(0px 0px 5px rgba(0,0,0,0.9));
+  filter: drop-shadow(0px 0px 5px rgba(0,0,0,0.9));
 }
 
 .tooltip:before {
@@ -169,6 +171,30 @@ a:hover{text-decoration:none;}
 	background: #FFFFFF;
 	box-shadow: 0 0 13px rgba(0,0,0,0.5);
 	margin-bottom: 3%;
+}
+
+.post-image {
+	height: 200px;
+	width: 520px;
+	overflow:hidden;
+}
+ 
+.post-image img {
+	height: 200px;
+	width: 520px;
+	-moz-transition: all 0.7s;
+	-o-transition: all 0.7s;
+	-webkit-transition: all 0.7s;
+	-webkit-filter: brightness(0.8);
+	filter: brightness(0.8);
+}
+
+.post-image img:hover{
+	-webkit-transform: scale(1.1);
+	-moz-transform: scale(1.1);
+	-o-transform: scale(1.1);
+	-webkit-filter: brightness(1);
+	filter: brightness(1);
 }
 
 .post-block {
@@ -523,8 +549,43 @@ a:hover{text-decoration:none;}
 .profile-small-head .fa {font-size: 13px; margin: 2px;}
 .profile-link-lk {border-radius: 5px; font-size: 12px; font-weight: bold; background: #5ac06a; color: #fff; padding: 5px;}
 
-.profile-small-avatar {transition: .5s ease; float:left; height:80px; width:80px;}
-.profile-small-avatar:hover {opacity: 0.7; transition: .5s ease;}
+.profile-small-avatar { transition: .3s ease; float:left; height:80px; width:80px;}
+
+.contanier {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  transition: .5s; 
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  width: 80px;
+  opacity: 0;
+  transition: .5s ease;
+}
+
+.contanier:hover .profile-small-avatar {-webkit-filter: blur(1px);filter: blur(1px);transition: .5s ease;}
+
+.contanier:hover .overlay {opacity: 1;}
+
+.icon {
+  color: #c2c2c2;
+  font-size: 30px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.fa-cog:hover {color: #fff;}
 
 #avatar-block {
 	background-color: #D3D3D3;
@@ -534,3 +595,4 @@ a:hover{text-decoration:none;}
 	margin-bottom:20px;
 }
 .profile-avatar{ height:70px; width:70px; float:left; margin-right:20px; border-radius: 30px; }
+

@@ -9,7 +9,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     birth_date = models.DateField(null=True, blank=True)
     email_confirmed = models.BooleanField(default=False)
-    avatar = models.ImageField(upload_to="avatars/")
+    avatar = models.ImageField(upload_to="avatars/", default='avatars/Zapadno-sibirskaya-layka-na-gazone-lodozo.com_-600x476.png')
     skype = models.CharField(max_length=50, blank=True)
     vk = models.CharField(max_length=50, blank=True)
     discord = models.CharField(max_length=50, blank=True)

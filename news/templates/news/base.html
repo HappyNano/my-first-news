@@ -90,7 +90,14 @@
 			<div class="element">
 				<div class="profile-small">
 					<fieldset class="profile-small">
-						<img src="{{ user.profile.avatar.url }}" class="profile-small-avatar">
+						<div class="contanier">
+							<img src="{{ user.profile.avatar.url }}" class="profile-small-avatar">
+							<div class="overlay">
+								<a href="{% url 'edit_profile' %}" class="icon">
+									<i class="fa fa-cog"></i>
+								</a>
+							</div>
+						</div>
 						<div class="profile-small-head">
 							<p><i class="fa fa-user"></i>{{ user.get_username }}</p>
 							<a href="{% url 'profile'%}" class='profile-link-lk'>Личный кабинет</a>
@@ -142,21 +149,21 @@
 	</div>
 	
 	{% if messages %}
-		<div class="posts-container">
-			<ul class="post">
+		<div style="width: 620px;">
+			<ul class="post" style="padding: 5px;">
 				{% for message in messages %}
-					<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+					<li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|safe }}</li>
 				{% endfor %}
 			</ul>
 		</div>
 	{% endif %}
+
 	{% block content %}
 	{% endblock %}
 	</div>
 	
 	{% block JavaScript %}
 	{% endblock %}
-	
 	
 
 <script type="text/javascript">

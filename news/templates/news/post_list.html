@@ -8,7 +8,7 @@
 			<h2> {{ small.title }} </h2>
 			<p style="margin-left: 1%; padding-top:0;"> {{ small.text_full|linebreaksbr }} </p>
 		</div>
-	{% endfor %}
+		{% endfor %}
 	</div>
 
 
@@ -28,6 +28,13 @@
 					</li>
                 </ul>
 			</div>
+			{% if post.image %}
+			<div class="post-block" style="padding-top:0;">
+				<div class="post-image">
+					<img src="{{ post.image.url }}">
+                </div>
+			</div>
+			{% endif %}
 			<div class="post-block" style="margin-left: 1%; padding-top:0;">
 				<p> {{ post.text_short|safe }} </p>
 			</div>
