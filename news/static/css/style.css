@@ -503,11 +503,12 @@ a:hover{text-decoration:none;}
 .input-element textarea {box-shadow: 0 0 0 1px #7eb4ea inset, 0 1px 2px rgba(0,0,0,.2) inset; float:left;}
 
 .input-element input:hover, textarea:hover {
-  box-shadow: 0 0 0 1px #7eb4ea inset, 0 1px 2px rgba(0,0,0,.2) inset;
+  box-shadow: 0 0 0 1px #8d66c7 inset, 0 1px 2px rgba(0,0,0,.2) inset;
 }
 .input-element input:focus, textarea:focus {
   outline: none;
-  box-shadow: 0 0 0 2px #7eb4ea inset, 0 3px 4px rgba(0,0,0,.2) inset, 0 0 6px rgba(35,146,243,.5);
+  box-shadow: 0 0 0 2px #8d66c7 inset, 0 3px 4px rgba(0,0,0,.2) inset, 0 0 6px #8d66c7;/*#7eb4ea*/
+  font-weight:600;
   border-radius: 5px;
   transition: 0.2s linear;
   -webkit-transition: 0.2s linear;

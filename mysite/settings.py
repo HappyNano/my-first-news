@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'news',
     'userprofile',
 	'g_recaptcha',
+	'forum',
 ]
 
 MIDDLEWARE = [
@@ -114,12 +115,12 @@ LOGGING = {
         'file': {
             'level': 'DEBUG',
             'class': 'logging.FileHandler',
-            'filename': 'C:/Users/Дрэй/Desktop/ /ффф/серверочек/my-first-news/debug.log',
+            'filename': 'C:/Users/юзер/Desktop/ /ффф/серверочек/my-first-news/debug.log',
         },
 		'file': {
             'level': 'INFO',
             'class': 'logging.FileHandler',
-            'filename': 'C:/Users/Дрэй/Desktop/ /ффф/серверочек/my-first-news/debug-django.log',
+            'filename': 'C:/Users/юзер/Desktop/ /ффф/серверочек/my-first-news/debug-django.log',
         },
 		'console': {
             'class': 'logging.StreamHandler',
@@ -171,7 +172,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/static/media/'
-MEDIA_ROOT = 'C:/Users/Дрэй/Desktop/ /ффф/серверочек/my-first-news/news/static/media/'
+MEDIA_ROOT = 'C:/Users/юзер/Desktop/ /ффф/серверочек/my-first-news/news/static/media/'
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'

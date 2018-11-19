@@ -75,7 +75,7 @@
 					<li><a style="color: red;" href="/admin/">Админка</a></li>
 				{% endif %}
 				<li><a href="{% url 'about'%}">О нас</a></li>
-                <li><a href="#">Форум(не работает)</a></li>
+                <li><a href="{% url 'forum'%}">Форум(не работает)</a></li>
                 <li><a href="/" class="active">Главная</a></li>
             </ul>
 		</div>
@@ -122,6 +122,7 @@
 						<form method="post" action="{% url 'login' %}">
 							{% csrf_token %}
 							<div class="form-group ">
+								<input type="hidden" name="path" id="path" value="{{ request.path }}">
 								<input type="login" name="username" class="form-control" placeholder="Имя пользователя " maxlength="25" required="" id="id_username">
 								<i class="fa fa-user"></i>
 							</div>
@@ -203,6 +204,5 @@ function toggle_password(element_id, show_text) {
 	}
 }
 </script>
-	
 </body>
 </html>

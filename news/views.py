@@ -57,7 +57,7 @@ def post_detail(request, pk):
             # Save the comment to the database
             new_comment.save()
         else:
-            messages.error(request, "Error")
+            messages.error(request, "Ошибка")
     else:
         comment_form = CommentForm()
     return render(request,

@@ -5,26 +5,29 @@
 		<p style="color:red;">Что-бы зарегистрироваться, нужно выйти из аккаунта!</p>
 	{% else %}
 		<h1>Регистрация</h1>
+		<small>{{form.username.errors}}</small>
+		<small>{{form.email.errors}}</small>
+		<small>{{form.password2.errors}}</small>
 		<form method="post">
 			{% csrf_token %}
 			<div class="input-element">
 				<p>Имя пользователя <br><small>Придумай себе ник в игре*</small></p>
-				<input type="text" placeholder="Логин" name="username" maxlength="150" required="" class="js_username" id="id_username">
+				<input type="text" placeholder="Логин" name="username" maxlength="150" required="" class="js_username" id="id_username" value="{{ form.username.value}}">
 				<i class="fa fa-user"></i>
 			</div><br>
 			<div class="input-element">
 				<p>Ваше имя <br><small>Обязательное поле*</small></p>
-				<input type="text" placeholder="Имя" name="first_name" maxlength="150" required="" id="id_first_name">
+				<input type="text" placeholder="Имя" name="first_name" maxlength="150" required="" id="id_first_name" value="{{ form.first_name.value}}">
 				<i class="fas fa-id-card-alt"></i>
 			</div><br>
 			<div class="input-element">
 				<p>Ваша фамилия <br><small>Обязательное поле*</small></p>
-				<input type="text" placeholder="Фамилия" name="last_name" maxlength="150" required="" id="id_last_name">
+				<input type="text" placeholder="Фамилия" name="last_name" maxlength="150" required="" id="id_last_name" value="{{ form.last_name.value}}">
 				<i class="fas fa-id-card-alt"></i>
 			</div><br>
 			<div class="input-element">
 				<p>Ваша почта <br><small>Для подтверждения пользователя*</small></p>
-				<input type="email" placeholder="Почта" name="email" maxlength="150" required="" id="id_email">
+				<input type="email" placeholder="Почта" name="email" maxlength="150" required="" id="id_email" value="{{ form.email.value}}">
 				<i class="fas fa-at"></i>
 			</div><br>
 			<div class="input-element">
@@ -99,5 +102,9 @@
       });
 
     });
+  </script>
+  <script id="input-js">
+	$('input[value^="None"]').val('');
+	$('#input-js').remove();
   </script>
 {% endblock %}

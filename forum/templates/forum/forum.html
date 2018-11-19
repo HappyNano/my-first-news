@@ -1,0 +1,17 @@
+{% extends 'news/base.html' %}
+
+{% block content %}
+	<div class="container">
+		{% for block in blocks %}
+			{{ block.title }}
+			<br>
+			{% for subblock in subblocks %}
+			    <br>
+				{% if subblock.block.title == block.title %}
+					<a href="{% url 'block' pk=subblock.pk %}"> {{ subblock.title }} </a>
+				{% endif %}
+		    {% endfor %}
+			<hr>
+		{% endfor %}
+	</div>
+{% endblock %}

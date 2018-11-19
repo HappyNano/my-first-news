@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 
 from django.contrib.sites.shortcuts import get_current_site
 from django.utils.encoding import force_bytes
+from django.utils.encoding import force_text
+from django.utils.http import urlsafe_base64_decode
 from django.utils.http import urlsafe_base64_encode
 from django.template.loader import render_to_string
 from .forms import SignUpForm
@@ -30,9 +32,13 @@ from django.contrib.auth import login, authenticate
 def login(request):
     username = request.POST.get('username', "")
     password = request.POST.get('password', "")
+    path = request.POST.get('path', "")
     user = auth.authenticate(username=username, password=password)
     if user is not None:
         auth.login(request, user)
+        if user.profile.email_confirmed == False:
+            messages.success(request, 'Ваша почта не подтверждена. Если вы по каким-то причинам не можете подтвердить почту, то напишите в нашу поддержку.')
+        return redirect('/')
     else:
         messages.error(request, '''<script type="text/javascript" id="message-script">
 				$("fieldset#box").slideToggle(0);
@@ -44,7 +50,7 @@ def login(request):
 				});
 				$("#message-script").remove();
 			</script><div style="color:red;">Логин или пароль не совпадают! Попробуйте заного</div>''')
-    return redirect('/')
+        return redirect(path)
 
 def logout(request):
     auth.logout(request)
@@ -60,7 +66,7 @@ def signup(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            user.is_active = False
+            user.is_active = True
             user.save()
             form.save()
             current_site = get_current_site(request)
@@ -99,7 +105,6 @@ def activate(request, uidb64, token):
         user = None
 
     if user is not None and account_activation_token.check_token(user, token):
-        user.is_active = True
         user.profile.email_confirmed = True
         user.save()
         return render(request, 'userprofile/success_reg.html')
