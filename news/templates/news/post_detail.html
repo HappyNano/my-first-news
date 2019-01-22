@@ -29,25 +29,10 @@
 			{% for comment in comments %}
 			<div class="comment-block">
 				<div class="comment-status">
-					<img id="comment-avatar" class="comment-avatar">
-					<h4>{{ comment.user }}</h4>
+					<img id="comment-avatar" class="comment-avatar" src="{{ comment.get_user_avatar }}">
+					<h4>{{ comment.user }}</h4><p>{{ comment.get_user_online }}</p>
 					<ul><li><i class="fa fa-clock"></i>{{ comment.created }}</li></ul>	
 				</div>
-  <script id="comment-script">
-	var username = "{{ comment.user }}";
-
-      $.ajax({
-        url: "{% url 'get_avatar' %}",
-        data: {
-          'username': username
-        },
-        dataType: 'json',
-        success: function (data) {
-          $("#comment-avatar:first").attr({"src": data.avatar, "id": ""});
-		  $("#comment-script").remove();
-        }
-      });
-  </script>
 				<p style="padding-left:3%">{{ comment.body|linebreaks }}</p>
 			</div>
 			<hr/>
@@ -56,9 +41,6 @@
 					<p style="text-align:center;">Комментариев нету </br> Добавь новый комментарий</p>
 				</div>
 				{% endfor %}
-  <script id="comment-script-2">
-	$("#comment-script-2").remove();
-  </script>
 		{% if new_comment %}
 			<h2>Ваш коммент добавлен.</h2>
 		{% else %}

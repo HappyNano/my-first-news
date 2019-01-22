@@ -29,8 +29,6 @@ import logging
 logger = logging.getLogger(__name__)
 
 def post_list(request):
-    ip = request.META.get('REMOTE_ADDR', '') or request.META.get('HTTP_X_FORWARDED_FOR', '')
-    logger.debug('USER: '+str(request.user.username)+' IP: '+str(ip)+' post_list')
     small_posts = Small_post.objects.filter(published_date__lte=timezone.now()).order_by('published_date') 
     posts = Post.objects.filter(published_date__lte=timezone.now()).order_by('published_date')
     return render(request, 'news/post_list.html', {'posts':  reversed(posts), 'small_posts': reversed(small_posts),})
@@ -39,10 +37,7 @@ from django.conf import settings
 		
 @validate_captcha
 def post_detail(request, pk):
-    ip = request.META.get('REMOTE_ADDR', '') or request.META.get('HTTP_X_FORWARDED_FOR', '')
-    logger.debug('USER: '+str(request.user.username)+' IP: '+str(ip)+' post_detail')
     post = get_object_or_404(Post, pk=pk)
-    # List of active comments for this post
     comments = post.comments.filter(active=True)
 
     if request.method == 'POST':
@@ -70,6 +65,4 @@ def post_detail(request, pk):
 from django.contrib import messages
 
 def about(request):
-    ip = request.META.get('REMOTE_ADDR', '') or request.META.get('HTTP_X_FORWARDED_FOR', '')
-    logger.debug('USER: '+str(request.user.username)+' IP: '+str(ip)+' about')
     return render(request, 'news/about.html')

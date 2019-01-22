@@ -1,17 +1,24 @@
-{% extends 'news/base.html' %}
+{% extends 'forum/base.html' %}
 
 {% block content %}
-	<div class="container">
+	<div class="forum">
 		{% for block in blocks %}
-			{{ block.title }}
-			<br>
-			{% for subblock in subblocks %}
-			    <br>
-				{% if subblock.block.title == block.title %}
-					<a href="{% url 'block' pk=subblock.pk %}"> {{ subblock.title }} </a>
-				{% endif %}
-		    {% endfor %}
-			<hr>
+			<div class="forum-block">
+				<div class="forum-block-title">
+					<p>{{ block.title }}</p>
+					<small>{{ block.small }}</small>
+				</div>
+				{% for subblock in block.subblock.filter %}
+					<div class="forum-subblock">
+						<i class="forum-i far fa-comments"></i>
+						<a href="{% url 'block' pk=subblock.pk %}"> {{ subblock.title }} </a>
+						<br>
+						<small>Тем: {{ subblock.post.filter.count }}</small>
+					</div>
+				{% endfor %}
+			</div>
 		{% endfor %}
+		<p id="online"></p>
+		<a class="forum-block-btncheck" href="{% url 'check' %}">Проверка</a>
 	</div>
 {% endblock %}

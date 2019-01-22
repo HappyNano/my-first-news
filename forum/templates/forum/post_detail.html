@@ -1,75 +1,176 @@
-{% extends 'news/base.html' %}
+{% extends 'forum/base.html' %}
 
 {% block content %}
-<div class="posts-container">
-    <div class="post">
-		<div class="post-block">
-			<h2>{{ post.title }}</h2>
-			<ul>
-				<li><i class="fa fa-calendar-alt"></i>							  
-					{% if post.published_date %}
-						{{ post.created_date }}
-					{% endif %}  
-				</li>
-			</ul>
-		</div>
-		<div class="post-block" style="margin-left: 1%; padding-top:0;">
-			<p> {{ post.body|linebreaksbr }} </p>
-		</div>
-	</div>
-
-		<div class="comment">
-			{% for comment in comments %}
-			<div class="comment-block">
-				<div class="comment-status">
-					<img id="comment-avatar" class="comment-avatar">
-					<h4>{{ comment.user }}</h4>
-					<ul><li><i class="fa fa-clock"></i>{{ comment.created }}</li></ul>	
+{% load poll_extras %}
+<div class="forum-posts-container">
+	<div class="forum-post">
+		{% if 'forum.forum.post.close' in perms or 'forum.forum.post.delete.foreign' in perms or post.author.username == request.user.username %}
+			<div class="dropdown" style="float: right;">
+				<button class="mainmenubtn">ОПЦИИ</button>
+				<div class="dropdown-child">
+					{% if 'forum.forum.post.delete.foreign' in perms or post.author.username == request.user.username %}
+						<a id="ajax_delete" onclick="post_delete();">Удалить тему</a>
+					{% endif %}
+					{% if 'forum.forum.post.close' in perms %}
+						{% if post.active == True %}
+							<a id="ajax_freeze" onclick="post_freeze(0);">Закрыть тему</a>
+						{% else %}
+							<a id="ajax_freeze" onclick="post_freeze(1);">Открыть тему</a>				
+						{% endif %}
+					{% endif %}
+					{% if 'forum.forum.post.close' in perms %}
+						{% if post.checked == True %}
+							<a id="ajax_check"><div onclick="post_check(0);">Проверена<i style='color: green; margin: 7px; top: 130px; right: 0px' class='fas fa-check'></i></div onclick="post_check(1);"><div style="display: none;">Не проверена<i style='color: red; margin: 7px; top: 130px; right: 0px' class="fas fa-times"></i></div></a>
+						{% else %}
+							<a id="ajax_check"><div onclick="post_check(1);">Не проверена<i style='color: red; margin: 7px; top: 130px; right: 0px' class="fas fa-times"></i></div><div onclick="post_check(0);" style="display: none;">Проверена<i style='color: green; margin: 7px; top: 130px; right: 0px' class='fas fa-check'></i></div></a>				
+						{% endif %}
+					{% endif %}
 				</div>
-  <script id="comment-script">
-	var username = "{{ comment.user }}";
-
+			</div>
+			    
+  <script id="post-script">
+  function post_freeze(bool) {
       $.ajax({
-        url: "{% url 'get_avatar' %}",
+        url: "{% url 'post_freeze' %}",
         data: {
-          'username': username
+          'pk': {{ post.pk }},
+		  'do': bool,
         },
         dataType: 'json',
         success: function (data) {
-          $("#comment-avatar:first").attr({"src": data.avatar, "id": ""});
-		  $("#comment-script").remove();
+		  $("#ajax_freeze").append("<i style='color: green; margin: 7px; top: 70px; right: 0px' class='fas fa-check'></i>");
         }
-      });
+      });}
+	 
+  function post_delete() {
+      $.ajax({
+        url: "{% url 'post_delete' %}",
+        data: {
+          'pk': {{ post.pk }},
+        },
+        dataType: 'json',
+        success: function (data) {
+		  $("#ajax_delete").append("<i style='color: green; margin: 7px; right: 0px' class='fas fa-check'></i>");
+        }
+      });}
+  function post_check(bool) {
+      $.ajax({
+        url: "{% url 'post_check' %}",
+        data: {
+          'pk': {{ post.pk }},
+		  'do': bool,
+        },
+        dataType: 'json',
+        success: function (data) {
+			$("#ajax_check div").toggle();
+        }
+      });}
   </script>
-				<p style="padding-left:3%">{{ comment.body|linebreaks }}</p>
-			</div>
-			<hr/>
-				{% empty %}
-				<div class="commen-block">
-					<p style="text-align:center;">Комментариев нету </br> Добавь новый комментарий</p>
+  <script>
+	$(".dropdown").click(function(){
+		$(".dropdown-child").slideToggle();
+	});
+  </script>
+  {% endif %}
+	<a class="back" style="margin: 17px;" href="{% url 'block' pk=post.block.pk %}"><i class="fa fa-chevron-circle-left"></i> Назад</a>
+	<h1 class="forum-post-title">{{ post.title }}</h1>
+	<div class="forum-post-block">
+		<div class="forum-left">
+			<div class="forum-post-block">
+				<p class="nickname">{{ post.author }}</p>
+				<div class="avatar">
+					<img src="{{ post.get_user_avatar }}">
+					<span class="status" data-status="{{ post.get_user_online_short }}"></span>
+					<div class="rep">
+						<p style="margin-top: 30px;">Репутация: {{ post.author_rep }}</p>
+						<a id="plus-rep" onclick="plus_rep('{{ post.author }}')"><i class="fas fa-plus-square"></i></a>
+					    <a id="mines-rep" onclick="mines_rep('{{ post.author }}')"><i class="fas fa-minus-square"></i></a>
+					</div>
 				</div>
-				{% endfor %}
-  <script id="comment-script-2">
-	$("#comment-script-2").remove();
+			</div>
+		</div>
+		<div class="forum-post-status">
+			<ul><li><i class="fa fa-clock"></i>{{ post.created_date }}</li></ul>
+		</div>
+		<p style="padding-left:3%; padding-top: 2%; word-wrap: break-word;">{{ post.body|linebreaks }}</p>
+	</div>
+	</div>
+  <script id="user-rep-script">
+  function plus_rep(nick) {
+      $.ajax({
+        url: "{% url 'plus-rep' %}",
+        data: {
+          'nick': nick,
+        },
+        dataType: 'json',
+        success: function (data) {
+		  swal({
+			icon: data.icon,
+			text: data.text,
+			closeOnClickOutside: false,
+		  });
+        }
+      });}
+
+  function mines_rep(nick) {
+      $.ajax({
+        url: "{% url 'mines-rep' %}",
+        data: {
+          'nick': nick,
+        },
+        dataType: 'json',
+        success: function (data) {
+		  swal({
+			icon: data.icon,
+			text: data.text,
+			closeOnClickOutside: false,
+		  });
+        }
+      });}
   </script>
+	{% for comment in comments %}
+	<div class="forum-post">
+		<div class="forum-post-block">
+			<div class="forum-left">
+				<div class="forum-post-block">
+					<p class="nickname">{{ comment.user }}</p>
+					<div class="avatar">
+						<img src="{{ comment.get_user_avatar }}">
+						<span class="status" data-status="{{ comment.get_user_online_short }}"></span>
+						<div class="rep">
+							<a id="mines-rep" onclick="plus_rep('{{ comment.user }}')"><i class="fas fa-plus-square"></i></a>
+							<a id="mines-rep" onclick="mines_rep('{{ comment.user }}')"><i class="fas fa-minus-square"></i></a>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="forum-post-status">
+				<ul><li><i class="fa fa-clock"></i>{{ comment.created }}</li></ul>
+			</div>
+			<p style="padding-left:3%; padding-top: 2%; word-wrap: break-word;">{{ comment.body|linebreaks }}</p>
+		</div>
+	</div>
+	{% endfor %}
+	<div class="comment">
+		{% if post.active == True %}
 		{% if new_comment %}
 			<h2>Ваш коммент добавлен.</h2>
 		{% else %}
     {% if user.is_authenticated %}
-	 {% if user.profile.email_confirmed is True %}
-     <div class="comment-block">
+	  {% if user.profile.email_confirmed is True %}
+      <div class="comment-block">
 		<form action="." method="post">
 			{% csrf_token %}
 			<textarea name="body" class="textarea" placeholder="Текст" required="" id="id_body"></textarea>
 			<div class="g-recaptcha g" data-sitekey="{{ google_key }}"></div>
-			<input type="submit" class="submit" value="Отправить комментарий">
+			<input type="submit" class="submit" value="Ответить">
 		</form>
-     </div>
-	 {% else %}
-		<div class="commen-block">
+      </div>
+	  {% else %}
+		<div class="comment-block">
 			<p style="text-align:center;"> Что-бы оставить комментарий, подтвердите почту </p>
 		</div>
-     {% endif %}
+      {% endif %}
 	{% else %}
 	<div class="comment-block">
 		<p style="text-align:center;"> Что-бы оставить комментарий, войдите в аккаунт </p>
@@ -77,6 +178,11 @@
 	{% endif %}
 {% endif %}
 	
+	</div>		
+		{% else %}
+			<div class="comment-block">
+				<p style="text-align:center;">Тема закрыта!</p>
+			</div>
+	{% endif %} 
 	</div>
-</div>
 {% endblock %}

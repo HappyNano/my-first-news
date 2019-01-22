@@ -1,0 +1,1 @@
+start cmd /k manage.py runserver

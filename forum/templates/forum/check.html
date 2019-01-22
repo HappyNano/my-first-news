@@ -3,16 +3,15 @@
 {% block content %}
 {% load poll_extras %}
 	<div class="forum">
-		<a class="forum-block-add" href="{% url 'forum_post_add' pk=subblock.pk %}">Новая тема</a>
 		<a class="back" href="{% url 'forum'%}"><i class="fa fa-chevron-circle-left"></i> Назад</a>
 	    <div class="forum-block-head">
-			<p>{{ subblock.title }}</p>
-			<small>{{ subblock.about }}</small>
+			<p>Проверка форум тем</p>
+			<small>Раздел для администрации*</small>
 		</div>
 		<div class="forum-block">
 			<br>
-			{% for post in posts1 %}
-			  {% if post.fixed == True %}
+			{% for post in posts %}
+			  {% if post.checked == False %}
 				<div class="forum-list-post">
 					<div class="forum-subblock-author">
 						<img class="forum-subblock-author-avatar" src="{{ post.get_user_avatar }}">
@@ -20,24 +19,6 @@
 						<small>От: {{ post.created_date|date:"j E Y" }}</small>
 					</div>
 					<i class="forum-i fa fa-thumbtack" style="padding-left: 13px; padding-right: 13px"></i>
-					{% if post.active == False %}<i class="fa fa-lock">{% endif %}</i><a href="{% url 'forum_post_detail' pk=post.pk %}"> {{ post.title }} </a>
-					<br>
-					<small>Комментариев: {{ post.comments.filter.count }}</small>
-					<br>
-					<small>Просмотров: {{ post.views|split:" "|length }}</small>
-				</div>
-			  {% endif %}
-			{% endfor %}
-            <hr style="width: 95%;">
-			{% for post in posts2 %}
-			  {% if post.fixed != True %}
-				<div class="forum-list-post">
-					<div class="forum-subblock-author">
-						<img class="forum-subblock-author-avatar" src="{{ post.get_user_avatar }}">
-						<small>Создан: {{ post.author }}</small>
-						<small>От: {{ post.created_date|date:"j E Y" }}</small>
-					</div>
-					<i class="forum-i far fa-comments"></i>
 					{% if post.active == False %}<i class="fa fa-lock">{% endif %}</i><a href="{% url 'forum_post_detail' pk=post.pk %}"> {{ post.title }} </a>
 					<br>
 					<small>Комментариев: {{ post.comments.filter.count }}</small>

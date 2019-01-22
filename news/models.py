@@ -50,6 +50,16 @@ class Comment(models.Model):
     updated = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=True)
 
+    def get_user_online(self):
+        user = User.objects.get(username=self.user)
+        text = user.profile.get_online()
+        return '%s' % (text)
+
+    def get_user_avatar(self):
+        user = User.objects.get(username=self.user)
+        text = user.profile.avatar.url
+        return '%s' % (text)
+
     class Meta:
         ordering = ('created',)
 

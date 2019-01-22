@@ -60,8 +60,6 @@ def logout(request):
 from django.core.mail import send_mail
 @validate_captcha
 def signup(request):
-    ip = request.META.get('REMOTE_ADDR', '') or request.META.get('HTTP_X_FORWARDED_FOR', '')
-    logger.debug('USER: '+str(request.user.username)+' IP: '+str(ip)+' signup')
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -112,8 +110,6 @@ def activate(request, uidb64, token):
         return render(request, 'userprofile/account_activation_invalid.html')	
 
 def change_password(request):
-    ip = request.META.get('REMOTE_ADDR', '') or request.META.get('HTTP_X_FORWARDED_FOR', '')
-    logger.debug('USER: '+str(request.user.username)+' IP: '+str(ip)+' change_password')
     if request.method == 'POST':
         form = PasswordChangeForm(request.user, request.POST)
         if form.is_valid():
@@ -136,8 +132,6 @@ def profile(request):
 @login_required
 @transaction.atomic
 def edit_profile(request):
-    ip = request.META.get('REMOTE_ADDR', '') or request.META.get('HTTP_X_FORWARDED_FOR', '')
-    logger.debug('USER: '+str(request.user.username)+' IP: '+str(ip)+' update_profile')
     if request.method == 'POST':
         user_form = UserForm(request.POST, instance=request.user)
         profile_form = ProfileForm(request.POST, instance=request.user.profile)
@@ -158,8 +152,6 @@ def edit_profile(request):
 
 @login_required
 def update_avatar(request):
-    ip = request.META.get('REMOTE_ADDR', '') or request.META.get('HTTP_X_FORWARDED_FOR', '')
-    logger.debug('USER: '+str(request.user.username)+' IP: '+str(ip)+' update_avatar')
     if request.method == 'POST':
         avatar_form = AvatarForm(request.POST, instance=request.user.profile)
         if avatar_form.is_valid():
@@ -179,10 +171,73 @@ def update_avatar(request):
         avatar_form = AvatarForm(instance=request.user.profile)
     return render(request, 'userprofile/profile/profile.html')
 
+@login_required
+def userprofile(request, username):
+    user = User.objects.get(username=username)
+    return render(request, 'userprofile/profile/userprofile.html', {'userprofile': user,})
+
 def get_avatar(request):
     username = request.GET.get('username', None)
     user = User.objects.get(username=username)
     data = {
         'avatar': user.profile.avatar.url
     }
+    return JsonResponse(data)
+
+from django.utils import timezone
+
+@login_required
+def set_online(request):
+    dt = timezone.now()
+    user = request.user.username
+    user = User.objects.get(username=user)
+    user.profile.last_online = dt
+    user.save()
+    return JsonResponse({'1': '1'})
+
+def online(request):
+    online = 0
+    dt = timezone.now()
+    users = User.objects.all()
+    for i in range(len(users)):
+        user = users[i]
+        if (dt - user.profile.last_online).seconds < 120:
+            online += 1
+    return JsonResponse({'online': online})
+
+def get_online(request):
+    online = 0
+    dt = timezone.now()
+    users = User.objects.all()
+    for i in range(len(users)):
+        user = users[i]
+        if (dt - user.profile.last_online).seconds < 120:
+            online += 1
+    return JsonResponse({'online': online})
+
+def plus_rep(request):
+    nick = User.objects.get(username=request.GET.get('nick', None))
+    user = request.user.username
+    if str(user) in str(nick.profile.rep_plus):
+        data = {'icon': 'error', 'text': 'Вы уже повышали репутацию этому пользователю!'}
+    elif str(user) in str(nick.profile.rep_minus):
+        data = {'icon': 'error', 'text': 'Вы уже понижали репутацию этому пользователю!'}
+    else:
+        data = {'icon': 'success', 'text': 'Вы повысили репутацию этому пользователю!'}
+        nick.profile.rep_plus = nick.profile.rep_plus + " " + str(user)
+        nick.save()
+    return JsonResponse(data)
+
+def mines_rep(request):
+    nick = User.objects.get(username=request.GET.get('nick', None))
+    user = request.user.username
+    user = User.objects.get(username=user)
+    if str(user) in str(nick.profile.rep_minus):
+        data = {'icon': 'error', 'text': 'Вы уже понижали репутацию этому пользователю!'}
+    elif str(user) in str(nick.profile.rep_plus):
+        data = {'icon': 'error', 'text': 'Вы уже повышали репутацию этому пользователю!'}
+    else:
+        data = {'icon': 'success', 'text': 'Вы понизили репутацию этому пользователю!'}
+        nick.profile.rep_minus = nick.profile.rep_minus + " " + str(user)
+        nick.save()
     return JsonResponse(data)

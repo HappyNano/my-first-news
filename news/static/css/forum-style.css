@@ -1,0 +1,155 @@
+
+.avatar {
+    display: inline-block;
+    position: relative;
+}
+.avatar > .status {
+    position: absolute;
+    right: 0;
+    bottom: 5px;
+    width: 16px;
+    height: 16px;
+	z-index: 99;
+	border-radius:100px;
+	border: 2px solid white;
+}
+
+.avatar > .rep {
+	margin-top: 5px;
+    position: absolute;
+	right: 0;
+    bottom: -25px;
+    height: 40px;
+}
+ 
+.status[data-status='online'] { background-color: #0fbd00;}
+.status[data-status='offline'] { background-color: #a0a0a0;}
+.avatar .rep .fa-plus-square { right: 55px; font-size: 19px; }
+.avatar .rep .fa-minus-square { right: 30px; font-size: 19px; }
+
+.back { font-weight: bold; padding: 13px 10px 13px 10px; margin-right: 10px; background-color: #f2f2f3; float: left;}
+
+/* форум */
+
+.forum {
+	width: 100%;
+	padding-left:1%;
+	padding-right:1%;
+	padding-top:1%; 
+	padding-bottom:2%;
+	background: #FFFFFF;
+	box-shadow: 0 0 13px rgba(0,0,0,0.5);
+	margin-bottom: 3%;
+}
+
+.forum-block {
+	padding-bottom:1%;
+	margin-bottom: 17px;
+}
+
+.forum-block-title {
+	width: 100%;
+	padding: 1.7%;
+	padding-top: 1%;
+	background-color: #6495ED;
+	border-radius: 5px;
+}
+
+.forum-block-title p {font-weight:bold;}
+.forum-block-title small {font-size:12px; font-weight:bold; color: #635555!important;}
+
+.forum-subblock {
+	margin: 4px;
+	padding: 10px; padding-bottom: 13px;
+	border-bottom: 1px solid gainsboro;
+}
+
+.forum-i {
+	background-color: #6495ED;
+	border-radius: 5px;
+	padding: 10px;
+	font-size:19px;
+	float: left;
+	margin-right: 7px;
+}
+
+.forum small {color:#969698;}
+
+/* Блок */
+
+.forum-block-head {margin-bottom: 7px; padding-bottom: 10px; border-bottom: 5px solid #3a3333;}
+.forum-block-head p {font-weight:bold;font-size:20px; text-shadow: 0.03em 0.03em #333}
+.forum-block-head small {font-size:13px; font-weight:bold; color: #635555;}
+
+.forum-subblock-author {float: right; width: 160px;}
+.forum-subblock-author-avatar {float: right; height:45px; width:45px; margin-left: 5px; box-shadow: 0 0 5px rgba(0,0,0,0.5);}
+
+.forum-block-add {padding: 13px 10px 13px 10px; background-color: #78c977; float: right; font-weight: bold;}
+
+/* Пост */
+.forum-list-post {
+	margin: 4px;
+	padding: 10px;
+	background-color: #f2f2f3;
+	height: 70px;
+}
+
+.forum-posts-container { box-shadow: 0 0 13px rgba(0,0,0,0.5); width: 100%; background: #FFFFFF;}
+
+.forum-post-title {text-transform: none; margin: 10px; padding-left:9px; padding-right:9px; padding-top:4px; padding-bottom:4px; }
+
+.forum-left {
+	float: left;
+	width: 14%;
+	margin-left: 20px;
+	margin-right: 20px;
+	height: 170px;
+}
+
+.forum-left .forum-post-block { border: none; margin: 0; padding-left:8%; padding-right:8%; padding-top:5%; padding-bottom:2%;}
+.forum-left img {margin: 5px; width: 90px; height: 90px;}
+.forum-left .nickname {font-weight:bold;font-size:19.6px;}
+
+.forum-post {
+	background: #FFFFFF;
+	margin-bottom: 1px;
+	width: 100%;
+	display: inline-block;
+}
+
+.forum-post-status { float: right; margin-right: 5px; color: gray; }
+.forum-post-status .fa { margin-left: 3px; margin-right: 3px; }
+
+.forum-post-block {
+	border: 1px solid gainsboro; border-radius: 10px; display: inline-block;
+	padding-left:2px; padding-right:2px; padding-top:2px; padding-bottom:2px;
+	margin: 9px; width: 98%;
+}
+
+.forum-block-btncheck {padding: 13px 10px 13px 10px; margin: -35px 10px 20px 10px; background-color: #78c977; float: right; font-weight: bold;}
+
+/* userpforile */
+
+.userprofile {
+	float: left;
+	width: 620px;
+	padding: 1.5%;
+	background: #FFFFFF;
+	box-shadow: 0 0 13px rgba(0,0,0,0.5);
+	margin-bottom: 3%;
+}
+.userprofile .left-block {
+	float: left;
+	width: 100%;
+	background-color: #412e32;
+	color: #FFFFFF;
+	padding: 1%;
+	padding-bottom: 3%;
+}
+.userprofile .left-block p, .userprofile .left-block a { color: #FFFFFF; }
+.userprofile .left-block i { float: left; font-size: 35px; margin-right: 10px; }
+.userprofile .left-block small { font-size:13px; font-weight:bold; color: #c2c2c2; }
+
+.profile-avatar {
+	border-radius: 7px;
+}

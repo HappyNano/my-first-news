@@ -12,6 +12,7 @@ urlpatterns = [
 	url(r'^profile/edit/$', views.edit_profile, name='edit_profile'),
 	url(r'^profile/avatar/add$', views.update_avatar, name='avatar_add'),
 	url(r'^profile/change_password/$', views.change_password, name='change_password'),
+	url(r'^profile/(?P<username>\w+)/$', views.userprofile, name='profile'),
 	url(r'^signup/$', views.signup, name='signup'),
 	url(r'^login/$',  views.login, name='login'),
     url(r'^logout/$', views.logout, name='logout'),
@@ -22,6 +23,11 @@ urlpatterns = [
     url(r'^reset/(?P<uidb64>[0-9A-Za-z_\-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',
         auth_views.password_reset_confirm, name='password_reset_confirm'),
     url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
+	url(r'^ajax/set_online$', views.set_online, name='set_online'),
+	url(r'^ajax/online$', views.online, name='online'),
+	url(r'^ajax/get_online$', views.get_online, name='get_online'),
+	url(r'^ajax/plus-rep$', views.plus_rep, name='plus-rep'),
+	url(r'^ajax/mines-rep$', views.mines_rep, name='mines-rep'),
 ]
 
 urlpatterns += [

@@ -1,3 +1,7 @@
+:root {
+  --main-width: 54%;
+}
+
 /* BODY css*/
 
 * {
@@ -27,6 +31,8 @@ h6{ font-size:20px; }
 
 p {color:#444444; font-weight:450; margin:0;}
 
+a {cursor: pointer;}
+
 small {margin: 0; font-size:11px; color: #696969;}
 
 .left {float: left;}
@@ -36,7 +42,6 @@ small {margin: 0; font-size:11px; color: #696969;}
 .tooltip {
   position: fixed;
   padding: 10px 20px;
-  /* красивости... */
   text-align: center;
   font:14px;
   color: #fff;
@@ -63,7 +68,7 @@ small {margin: 0; font-size:11px; color: #696969;}
 a{color:#444444; text-decoration:none;}
 a:hover{text-decoration:none;}
 
-.zerogrid{ width: 1050px; position: relative; margin: 0 auto; padding: 0px; }
+.zerogrid{ width: var(--main-width); position: relative; margin: 0 auto; padding: 0px; }
 .zerogrid:after {content: "\0020"; display: block; height: 0; clear: both; visibility: hidden; }
 
 /* HEAD */
@@ -76,10 +81,11 @@ a:hover{text-decoration:none;}
     width: 100%;
 	top:0;
 	margin-bottom: 3%;
+	height: 64px;
 }
 
 .head-container {
-	width: 1050px; position: relative; margin: 0 auto; padding: 0px;
+	width: var(--main-width); position: relative; margin: 0 auto; padding: 0px; height: 64px;
 }
 
 .head-container img {
@@ -491,6 +497,7 @@ a:hover{text-decoration:none;}
 .input-element p {
 	float: left;
 	font-size: 20px;
+	margin-right: 17px;
 }
 
 .input-element small {
@@ -500,7 +507,7 @@ a:hover{text-decoration:none;}
 .input-element input, textarea {position: relative; float: right; width:50%; padding:13px; margin-bottom:0px; outline:none; background:#EEEEEE; border:none; transition: 0.2s linear; -webkit-transition: 0.2s linear;}
 .input-element textarea {float: left;}
 
-.input-element textarea {box-shadow: 0 0 0 1px #7eb4ea inset, 0 1px 2px rgba(0,0,0,.2) inset; float:left;}
+.input-element textarea {/* box-shadow: 0 0 0 1px #7eb4ea inset, 0 1px 2px rgba(0,0,0,.2) inset; */ float:left;}
 
 .input-element input:hover, textarea:hover {
   box-shadow: 0 0 0 1px #8d66c7 inset, 0 1px 2px rgba(0,0,0,.2) inset;
@@ -597,3 +604,30 @@ a:hover{text-decoration:none;}
 }
 .profile-avatar{ height:70px; width:70px; float:left; margin-right:20px; border-radius: 30px; }
 
+/* Drop down */
+
+.mainmenubtn {
+    background-color: red;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding:16px;
+    margin-top:20px;
+	font-weight: bold;
+}
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-child {
+    display: none;
+    background-color: black;
+    width: 150px;
+	position: fixed;
+}
+.dropdown-child a {
+    color: white;
+    padding: 20px;
+    text-decoration: none;
+    display: block;	
+}

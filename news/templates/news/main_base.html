@@ -1,0 +1,161 @@
+{% load staticfiles %}
+{% load tz %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="theme-color" content="#FFFF00">
+	<link rel="shortcut icon" href="{% static 'images/footer-log3.png' %}" type="image/png">
+    <title>CoinCraft</title>
+	<!-- CSS файлы-->
+	<link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css'>
+	<link href="{% static 'css/forum-style.css' %}" rel='stylesheet' type='text/css'>
+	
+	<link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
+	<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+	<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.2.0/css/solid.css" integrity="sha384-wnAC7ln+XN0UKdcPvJvtqIH3jOjs9pnKnq9qX68ImXvOGz2JuFoEiCjT8jyZQX2z" crossorigin="anonymous">
+	<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.2.0/css/fontawesome.css" integrity="sha384-HbmWTHay9psM8qyzEKPc8odH4DsOuzdejtnr+OFtDmOcIVnhgReQ4GZBH7uwcjf6" crossorigin="anonymous">
+	
+	<!-- JavaScript файлы -->
+	<script src="//unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
+	
+	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script type="text/javascript" src="{% static 'slick/slick.min.js' %}"></script>
+	<script>
+    var showingTooltip;
+
+    document.onmouseover = function(e) {
+      var target = e.target;
+
+      var tooltip = target.getAttribute('data-tooltip');
+      if (!tooltip) return;
+
+      var tooltipElem = document.createElement('div');
+      tooltipElem.className = 'tooltip';
+      tooltipElem.innerHTML = tooltip;
+      document.body.appendChild(tooltipElem);
+	  
+      var coords = target.getBoundingClientRect();
+
+      var left = coords.left + (target.offsetWidth - tooltipElem.offsetWidth) / 2;
+      if (left < 0) left = 0; // не вылезать за левую границу окна
+
+      var top = coords.top - tooltipElem.offsetHeight - 5;
+
+      tooltipElem.style.left = left + 'px';
+      tooltipElem.style.top = top + 'px';
+
+      showingTooltip = tooltipElem;
+    };
+
+    document.onmouseout = function(e) {
+
+      if (showingTooltip) {
+		document.body.removeChild(showingTooltip);
+        showingTooltip = null;
+      }
+
+    };
+  </script>
+</head>
+<body>
+
+	<!-- head -->
+
+	<div class="head">
+		<div class="head-container">
+			<ul>
+				<a href="/"><img src="{% static 'images/log2.png' %}" width="261px" height="60px" /></a>
+				{% if request.user.is_superuser is True %}
+					<li><a style="color: red;" href="/admin/">Админка</a></li>
+				{% endif %}
+				<li><a href="{% url 'about'%}">О нас</a></li>
+                <li><a href="{% url 'forum'%}">Форум</a></li>
+                <li><a href="/" class="active">Главная</a></li>
+            </ul>
+		</div>
+	</div>
+
+	{% block main %}
+	{% endblock %}
+	
+	{% block JavaScript %}
+	{% endblock %}
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("div#log-head").click(function() {
+			$("fieldset#box").slideToggle();
+			$("div#log-head").slideToggle();
+		});
+	});
+</script>
+	
+<script type="text/javascript">
+function toggle_password(element_id, show_text) {
+	if(document.getElementById) {
+		var password_input = document.getElementById(element_id);
+		var new_input      = document.createElement('input');
+		with(new_input) {
+			id          = password_input.id;
+			name        = password_input.name;
+			value       = password_input.value;
+			size        = password_input.size;
+			placeholder = password_input.placeholder;
+			className   = password_input.className;
+			type        = show_text ? 'text' : 'password';
+		}
+		password_input.parentNode.replaceChild(new_input, password_input);
+		
+		var toggle_button = document.getElementById("toggle_password_button");
+		var new_toggle_button = document.createElement('div');
+		new_toggle_button.id          = toggle_button.id;
+		new_toggle_button.className   = toggle_button.className;
+		new_toggle_button.style       = "font-size:15px;";
+		new_toggle_button.innerHTML   = show_text ? 'abc' : '•••';
+		
+		toggle_button.parentNode.replaceChild(new_toggle_button, toggle_button);
+		document.getElementById("toggle_password_button").addEventListener('click',function(){show_text ? toggle_password('id_password',false) : toggle_password('id_password',true);},false);
+	}
+}
+</script>
+{% if user.is_authenticated %}
+	<script id="online-script">
+		$.ajax({
+			url: "{% url 'set_online' %}",
+			success: function(data){
+			}
+		});
+		setInterval(function(){
+		$.ajax({
+			url: "{% url 'set_online' %}",
+			success: function(data){
+			}
+		});
+		}, 120000);
+	</script>
+{% endif %}
+ <script id="online-script">
+  $.ajax({
+    url: "{% url 'online' %}",
+    success: function(data){
+        $("#online").text("Online: " + data.online);
+    }
+  });
+  setInterval(function(){
+  $.ajax({
+    url: "{% url 'online' %}",
+    success: function(data){
+        $("#online").text("Online: " + data.online);
+    }
+  });
+}, 120000);
+  </script>
+</body>
+</html>
