@@ -31,10 +31,11 @@
 				<div class="comment-status">
 					<img id="comment-avatar" class="comment-avatar" src="{{ comment.get_user_avatar }}">
 					<h4>{{ comment.user }}</h4><p>{{ comment.get_user_online }}</p>
-					<ul><li><i class="fa fa-clock"></i>{{ comment.created }}</li></ul>	
+					<ul class="full-screen"><li><i class="fa fa-clock"></i>{{ comment.created }}</li></ul>	
 				</div>
 				<p style="padding-left:3%">{{ comment.body|linebreaks }}</p>
 			</div>
+			<br class="mobile-screen">
 			<hr/>
 				{% empty %}
 				<div class="commen-block">

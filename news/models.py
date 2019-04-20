@@ -52,7 +52,7 @@ class Comment(models.Model):
 
     def get_user_online(self):
         user = User.objects.get(username=self.user)
-        text = user.profile.get_online()
+        text = user.profile.get_online_short()
         return '%s' % (text)
 
     def get_user_avatar(self):

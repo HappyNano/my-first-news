@@ -3,16 +3,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta charset="utf-8"/>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="theme-color" content="#FFFF00">
 	<link rel="shortcut icon" href="{% static 'images/footer-log3.png' %}" type="image/png">
-    <title>CoinCraft</title>
+  <title>CoinCraft</title>
 	<!-- CSS файлы-->
 	<link href="{% static 'css/style.css' %}" rel='stylesheet' type='text/css'>
 	<link href="{% static 'css/forum-style.css' %}" rel='stylesheet' type='text/css'>
+	<link href="{% static 'css/mobile-style.css' %}" rel='stylesheet' type='text/css'>
 	
 	<link rel="stylesheet" type="text/css" href="{% static 'slick/slick.css' %}"/>
 	<link rel="stylesheet" type="text/css" href="{% static 'slick/slick-theme.css' %}"/>
@@ -22,11 +22,10 @@
 	
 	<!-- JavaScript файлы -->
 	<script src="//unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script src='https://www.google.com/recaptcha/api.js'></script>
 	
 	<script type="text/javascript" src="//code.jquery.com/jquery-1.11.0.min.js"></script>
-	<script type="text/javascript" src="//code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 	<script type="text/javascript" src="{% static 'slick/slick.min.js' %}"></script>
 	<script>
     var showingTooltip;
@@ -70,17 +69,26 @@
 	<!-- head -->
 
 	<div class="head">
-		<div class="head-container">
-			<ul>
-				<a href="/"><img src="{% static 'images/log2.png' %}" width="261px" height="60px" /></a>
-				{% if request.user.is_superuser is True %}
-					<li><a style="color: red;" href="/admin/">Админка</a></li>
-				{% endif %}
-				<li><a href="{% url 'about'%}">О нас</a></li>
-                <li><a href="{% url 'forum'%}">Форум</a></li>
-                <li><a href="/" class="active">Главная</a></li>
-            </ul>
-		</div>
+		<ul class="full-screen">
+			<a href="/"><img src="{% static 'images/log2.png' %}" width="282px" height="64px" /></a>
+			{% if request.user.is_superuser is True %}
+				<li><a style="color: red;" href="/admin/">Админка</a></li>
+			{% endif %}
+			<li><a href="{% url 'about'%}">О нас</a></li>
+      <li><a href="{% url 'forum'%}">Форум</a></li>
+			<li><a href="/" class="active">Главная</a></li>
+    </ul>
+		<ul class="phone-screen">
+			<a href="/"><img src="{% static 'images/log2.png' %}" width="282px" height="64px" /></a>
+			<div class="menu">	
+				<button class="menubtn"><i class="fas fa-list-ul"></i></button>
+				<div class="menu-child">
+					<li><a href="/" class="active">Главная</a></li>
+					<li><a href="{% url 'forum' %}">Форум</a></li>
+					<li><a href="{% url 'about' %}">О нас</a></li>
+				</div>
+			</div>
+		</ul>
 	</div>
 
 	{% block main %}

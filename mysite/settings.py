@@ -13,7 +13,7 @@ SECRET_KEY = '02t#n0wv(+a9rq&-bhp!4mrvk#rfw!n#tahje5yj26k5w_+82d'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'happyuser.pythonanywhere.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'happyuser.pythonanywhere.com', '92.49.212.135']
 
 # Application definition
 
@@ -113,7 +113,7 @@ STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MEDIA_URL = '/static/media/'
-MEDIA_ROOT = 'C:/Users/юзер/Desktop/ /ффф/серверочек/my-first-news/news/static/media/'
+MEDIA_ROOT = 'C:/Users/юзер/Desktop/ /my-first-news/news/static/media/'
 
 # Redirect to home URL after login (Default redirects to /accounts/profile/)
 LOGIN_REDIRECT_URL = '/'

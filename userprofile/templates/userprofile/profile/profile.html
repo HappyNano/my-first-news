@@ -1,34 +1,63 @@
 {% extends "news/base.html" %}
 {% block content %}
-	<div class="container">
-		<h1>Личный кабинет</h1>
-		<div id="avatar-block">
+	<div class="userprofile">
+		<div class="left-block">
 			<img src="{{ user.profile.avatar.url }}" class="profile-avatar">
-			<p style="color: black; font-weight: bold;">{{ request.user.get_username }}</p>
-			<a><span id="avatar-set" onclick="avatar(); return false;">Сменить аватар</span></a>
-			<div id='avatar-set-div' style='display: none;'>
-				{% if user.profile.email_confirmed is True %}
-					<form method="POST" enctype="multipart/form-data" action="{% url 'avatar_add' %}">
-						{% csrf_token %}
-						<input type="file" name="avatar" id="id_avatar">
-						<input type="submit" value="Поменять">
-					</form>
-				{% else %}
-					<span style="color:red;">Подтвердите вашу почту</span> 
-				{% endif %}
-			</div>	
+			<p style="font-weight: bold; letter-spacing: 0.7px;">{{ user.username }}</p>	
+			<a><span onclick="avatar(); return false;">Сменить аватар</span></a>
 			<br>
 			<a href="{% url 'edit_profile' %}">Редактировать профиль</a>
+			<br>
+			<a href="{% url 'change_password' %}">Поменять пароль</a>
 		</div>
-		<a href="{% url 'change_password' %}">Поменять пароль</a>
+		{% if user.profile.email_confirmed is True %}
+		<div class="left-block" id='avatar-set-div' style="background-color: #6d4c53; padding-top: 3%; display: none;">
+			<form method="POST" enctype="multipart/form-data" action="{% url 'avatar_add' %}">
+				<div class="input-file-container"> 
+					{% csrf_token %}				
+					<input class="input-file" name="avatar" id="id_avatar" type="file">
+					<label tabindex="0" for="my-file" class="input-file-trigger">Выберите файл...</label>
+				</div>
+				<p class="file-return" style="float:right;"></p>
+				<br><br><br>
+				<input type="submit" style="float: left;" value="Поменять">
+			</form>
+		</div>
+		{% else %}
+			<span style="color:red;">Подтвердите вашу почту</span> 
+		{% endif %}
+		<div class="left-block" style="background-color: #573b41; padding-top: 3%;">
+			<p><i style="margin-left: 3px; margin-right: 12px;" class="fa fa-calendar-alt"></i>{{ user.date_joined }}<br><small>Дата регистрации</small></p>
+			<br>
+			<p><i class="far fa-clock"></i>{{ user.profile.get_online }}<br><small>Последний онлайн</small></p>
+		</div>
 	</div>
+
 {% endblock %}
 
 {% block JavaScript %}
   <script>
   function avatar(){
-    document.getElementById('avatar-set').style.display='none';
-	document.getElementById('avatar-set-div').style.display='block';
+    $("#avatar-set-div").slideToggle();
   }
   </script>
+  {% if user.profile.email_confirmed is True %}
+  <script>
+var fileInput  = document.querySelector( ".input-file" ),  
+    button     = document.querySelector( ".input-file-trigger" ),
+    the_return = document.querySelector(".file-return");
+      
+button.addEventListener( "keydown", function( event ) {  
+    if ( event.keyCode == 13 || event.keyCode == 32 ) {  
+        fileInput.focus();  
+    }  
+});
+button.addEventListener( "click", function( event ) {
+   fileInput.focus();
+   return false;
+});  
+fileInput.addEventListener( "change", function( event ) {  
+    the_return.innerHTML = this.value;  
+});  
+</script>{% endif %}
 {% endblock %}
